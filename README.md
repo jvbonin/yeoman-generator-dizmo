@@ -1,4 +1,4 @@
-# generator-dizmo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-dizmo [![NPM version][npm-image]][npm-url]
 > Dizmo generator
 
 ## Installation
@@ -22,9 +22,3 @@ yo dizmo
 
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
-[travis-image]: https://travis-ci.org/dizmo/generator-dizmo.svg?branch=master
-[travis-url]: https://travis-ci.org/dizmo/generator-dizmo
-[daviddm-image]: https://david-dm.org/dizmo/generator-dizmo.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/dizmo/generator-dizmo
-[coveralls-image]: https://coveralls.io/repos/dizmo/generator-dizmo/badge.svg
-[coveralls-url]: https://coveralls.io/r/dizmo/generator-dizmo
