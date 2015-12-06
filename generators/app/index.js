@@ -1,40 +1,66 @@
 'use strict';
+
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
-    var done = this.async();
+    prompting: function () {
+        var done = this.async();
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the fantastic ' + chalk.red('generator-dizmo') + ' generator!'
-    ));
+        this.log(yosay(
+          'Welcome to the ' + chalk.red('generator-dizmo') + ' generator!'
+        ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+        var prompts = [{
+            type: 'confirm',
+            name: 'someOption',
+            message: 'Would you like to enable this option?',
+            default: true
+        }];
 
-    this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someOption;
+        this.prompt(prompts, function (props) {
+            this.props = props;
+            // To access props later use this.props.someOption;
+            done();
+        }.bind(this));
+    },
 
-      done();
-    }.bind(this));
-  },
+    writing: function () {
+        this.fs.copy(
+            this.templatePath('assets/'),
+            this.destinationPath('assets/'));
+        this.fs.copy(
+            this.templatePath('help/'),
+            this.destinationPath('help/'));
+        this.fs.copy(
+            this.templatePath('src/'),
+            this.destinationPath('src/'));
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  },
+        this.fs.copy(
+            this.templatePath('.dizmo.plist'),
+            this.destinationPath('.dizmo.plist'));
+        this.fs.copy(
+            this.templatePath('.eslintrc.js'),
+            this.destinationPath('.eslintrc.js'));
+        this.fs.copy(
+            this.templatePath('.gitignore'),
+            this.destinationPath('.gitignore'));
+        this.fs.copy(
+            this.templatePath('gulpfile.js'),
+            this.destinationPath('gulpfile.js'));
+        this.fs.copy(
+            this.templatePath('LICENSE'),
+            this.destinationPath('LICENSE'));
+        this.fs.copy(
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'));
+        this.fs.copy(
+            this.templatePath('README.md'),
+            this.destinationPath('README.md'));
+    },
 
-  install: function () {
-    this.installDependencies();
-  }
+    install: function () {
+        this.installDependencies();
+    }
 });
