@@ -31,7 +31,6 @@
     "license": "ISC",
     "name": "generator-dizmo",
     "main": "generators/index.js",
-    "private": true,
     "repository": "dizmo/generator-dizmo",
     "scripts": {
         "prepublish": "gulp prepublish",
