@@ -26,7 +26,7 @@
     ],
     "homepage": "http://dizmo.com/",
     "keywords": [
-        "yeoman-generator"
+        "yeoman-generator", "dizmo"
     ],
     "license": "ISC",
     "name": "generator-dizmo",
