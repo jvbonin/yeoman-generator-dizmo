@@ -4,24 +4,53 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
+var toUnderscoreCase = function (string) {
+    return string.replace(/\.?([A-Z]+)/g, function (_, part) {
+        return '_' + part.toLowerCase();
+    }).replace(/^_/, '');
+};
+
 module.exports = yeoman.generators.Base.extend({
     prompting: function () {
         var done = this.async();
 
         this.log(yosay(
-            'Welcome to the ' + chalk.red('generator-dizmo') + ' generator!'
+            'Welcome to the awsome ' + chalk.green.bold('dizmo') + ' generator!'
         ));
 
         var prompts = [{
-            type: 'confirm',
-            name: 'someOption',
-            message: 'Would you like to enable this option?',
-            default: true
+            type: 'input',
+            name: 'dizmoName',
+            message: 'Name your dizmo:',
+            default: 'MyDizmo'
+        }, {
+            type: 'input',
+            name: 'dizmoDescription',
+            message: 'Describe it:',
+            default: 'A hello-world dizmo'
+        }, {
+            type: 'input',
+            name: 'bundleId',
+            message: 'And its bundle ID?',
+            default: 'com.example.my_dizmo'
+        }, {
+            type: 'input',
+            name: 'personName',
+            message: 'What\'s your name?',
+            default: 'Name Surname',
+            store: true
+        }, {
+            type: 'input',
+            name: 'personEmail',
+            message: 'And your email?',
+            default: 'name.surname@example.com',
+            store: true
         }];
 
-        this.prompt(prompts, function (props) {
-            this.props = props;
-            // To access props later use this.props.someOption;
+        this.prompt(prompts, function (properties) {
+            this.properties = properties;
+            this.properties.dizmoNameUnderscored =
+                toUnderscoreCase(this.properties.dizmoName);
             done();
         }.bind(this));
     },
@@ -46,18 +75,18 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copy(
             this.templatePath('.gitignore'),
             this.destinationPath('.gitignore'));
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('gulpfile.js'),
-            this.destinationPath('gulpfile.js'));
+            this.destinationPath('gulpfile.js'), this.properties);
         this.fs.copy(
             this.templatePath('LICENSE'),
             this.destinationPath('LICENSE'));
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('package.json'),
-            this.destinationPath('package.json'));
-        this.fs.copy(
+            this.destinationPath('package.json'), this.properties);
+        this.fs.copyTpl(
             this.templatePath('README.md'),
-            this.destinationPath('README.md'));
+            this.destinationPath('README.md'), this.properties);
     },
 
     install: function () {

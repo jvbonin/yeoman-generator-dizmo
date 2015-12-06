@@ -31,25 +31,15 @@ gulp.task('lint', function () {
 });
 
 gulp.task('dizmo:plist', function () {
-    var to_underscore_case = function (string) {
-        return string.replace(/\.?([A-Z]+)/g, function (_, part) {
-            return '_' + part.toLowerCase();
-        }).replace(/^_/, '');
-    };
-    var to_string_tag = function (value) {
+    var toStringTag = function (value) {
         return '<string>{0}</string>'.replace('{0}', value);
     };
 
-    var api_version
-        = '1.3';
-    var bundle_id
-        = 'org.example.' + [pkg.name].map(to_underscore_case).join('');
-
     return gulp.src('.dizmo.plist')
         .pipe(gulp_replace('${ALLOW_RESIZE}', false))
-        .pipe(gulp_replace('${API_VERSION}', api_version))
+        .pipe(gulp_replace('${API_VERSION}', 1.3))
         .pipe(gulp_replace('${BUNDLE_DISPLAY_NAME}', pkg.name))
-        .pipe(gulp_replace('${BUNDLE_IDENTIFIER}', bundle_id))
+        .pipe(gulp_replace('${BUNDLE_IDENTIFIER}', '<%= bundleId %>'))
         .pipe(gulp_replace('${BUNDLE_NAME}', pkg.name))
         .pipe(gulp_replace('${BUNDLE_VERSION}', pkg.version))
         .pipe(gulp_replace('${CATEGORY}', 'none'))
@@ -60,7 +50,7 @@ gulp.task('dizmo:plist', function () {
         .pipe(gulp_replace('${HIDDEN_DIZMO}', false))
         .pipe(gulp_replace('${MAIN_HTML}', 'index.html'))
         .pipe(gulp_replace('${MIN_SPACE_VERSION}', '0.0.0'))
-        .pipe(gulp_replace('${TAGS}', pkg.keywords.map(to_string_tag).join('')))
+        .pipe(gulp_replace('${TAGS}', pkg.keywords.map(toStringTag).join('')))
         .pipe(gulp_replace('${TITLE_EDITABLE}', true))
         .pipe(gulp_replace('${WIDTH}', 480))
         .pipe(gulp_rename('Info.plist'))

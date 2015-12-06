@@ -10,7 +10,7 @@ npm install -g yo
 npm install -g generator-dizmo
 ```
 
-Then generate your new project:
+Then generate your new dizmo project:
 
 ```bash
 yo dizmo
@@ -18,7 +18,7 @@ yo dizmo
 
 ## License
 
- © [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2015 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
