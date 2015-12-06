@@ -25,7 +25,7 @@ gulp.task('nsp', function (cb) {
 gulp.task('pre-test', function () {
     return gulp.src('generators/**/*.js')
         .pipe(istanbul({
-          includeUntested: true
+            includeUntested: true
         }))
         .pipe(istanbul.hookRequire());
 });

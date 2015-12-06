@@ -9,7 +9,7 @@ module.exports = yeoman.generators.Base.extend({
         var done = this.async();
 
         this.log(yosay(
-          'Welcome to the ' + chalk.red('generator-dizmo') + ' generator!'
+            'Welcome to the ' + chalk.red('generator-dizmo') + ' generator!'
         ));
 
         var prompts = [{
