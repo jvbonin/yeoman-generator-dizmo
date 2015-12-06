@@ -1,41 +1,41 @@
 {
-  "author": {
-    "name": "Hasan Karahan",
-    "email": "hasan.karahan@blackhan.com",
-    "url": "http://www.blackhan.com/"
-  },
-  "dependencies": {
-    "yeoman-generator": "^0.21.1",
-    "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
-  },
-  "description": "Dizmo generator",
-  "devDependencies": {
-    "yeoman-assert": "^2.0.0",
-    "gulp": "^3.6.0",
-    "gulp-eslint": "^1.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^0.9.0",
-    "gulp-mocha": "^2.0.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0",
-    "gulp-coveralls": "^0.1.0"
-  },
-  "files": [
-    "generators"
-  ],
-  "homepage": "http://dizmo.com/",
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "license": "ISC",
-  "name": "generator-dizmo",
-  "main": "generators/index.js",
-  "private": true,
-  "repository": "dizmo/generator-dizmo",
-  "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
-  },
-  "version": "0.0.1"
+    "author": {
+        "name": "Hasan Karahan",
+        "email": "hasan.karahan@blackhan.com",
+        "url": "http://www.blackhan.com/"
+    },
+    "dependencies": {
+        "yeoman-generator": "^0.21.1",
+        "chalk": "^1.0.0",
+        "yosay": "^1.0.2"
+    },
+    "description": "Dizmo generator",
+    "devDependencies": {
+        "yeoman-assert": "^2.0.0",
+        "gulp": "^3.6.0",
+        "gulp-eslint": "^1.0.0",
+        "gulp-exclude-gitignore": "^1.0.0",
+        "gulp-istanbul": "^0.9.0",
+        "gulp-mocha": "^2.0.0",
+        "gulp-plumber": "^1.0.0",
+        "gulp-nsp": "^2.1.0",
+        "gulp-coveralls": "^0.1.0"
+    },
+    "files": [
+        "generators"
+    ],
+    "homepage": "http://dizmo.com/",
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "license": "ISC",
+    "name": "generator-dizmo",
+    "main": "generators/index.js",
+    "private": true,
+    "repository": "dizmo/generator-dizmo",
+    "scripts": {
+        "prepublish": "gulp prepublish",
+        "test": "gulp"
+    },
+    "version": "0.0.1"
 }
