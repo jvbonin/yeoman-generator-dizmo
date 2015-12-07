@@ -4,42 +4,42 @@
 <plist version="1.0">
   <dict>
     <key>AllowResize</key>
-    <${ALLOW_RESIZE}/>
+    <{{ALLOW_RESIZE}}/>
     <key>ApiVersion</key>
-    <string>${API_VERSION}</string>
+    <string>{{API_VERSION}}</string>
     <key>BundleDisplayName</key>
-    <string>${BUNDLE_DISPLAY_NAME}</string>
+    <string>{{BUNDLE_DISPLAY_NAME}}</string>
     <key>BundleIdentifier</key>
-    <string>${BUNDLE_IDENTIFIER}</string>
+    <string>{{BUNDLE_IDENTIFIER}}</string>
     <key>BundleName</key>
-    <string>${BUNDLE_NAME}</string>
+    <string>{{BUNDLE_NAME}}</string>
     <key>BundleVersion</key>
-    <string>${BUNDLE_VERSION}</string>
+    <string>{{BUNDLE_VERSION}}</string>
     <key>Category</key>
-    <string>${CATEGORY}</string>
+    <string>{{CATEGORY}}</string>
     <key>CloseBoxInsetX</key>
     <integer>0</integer>
     <key>CloseBoxInsetY</key>
     <integer>0</integer>
     <key>Description</key>
-    <string>${DESCRIPTION}</string>
+    <string>{{DESCRIPTION}}</string>
     <key>ElementsVersion</key>
-    <string>${ELEMENTS_VERSION}</string>
+    <string>{{ELEMENTS_VERSION}}</string>
     <key>ForceUpdate</key>
-    <${FORCE_UPDATE}/>
+    <{{FORCE_UPDATE}}/>
     <key>Height</key>
-    <integer>${HEIGHT}</integer>
+    <integer>{{HEIGHT}}</integer>
     <key>HiddenDizmo</key>
-    <${HIDDEN_DIZMO}/>
+    <{{HIDDEN_DIZMO}}/>
     <key>MainHTML</key>
-    <string>${MAIN_HTML}</string>
+    <string>{{MAIN_HTML}}</string>
     <key>MinSpaceVersion</key>
-    <string>${MIN_SPACE_VERSION}</string>
+    <string>{{MIN_SPACE_VERSION}}</string>
     <key>Tags</key>
-    <array>${TAGS}</array>
+    <array>{{#TAGS}}<string>{{.}}</string>{{/TAGS}}</array>
     <key>TitleEditable</key>
-    <${TITLE_EDITABLE}/>
+    <{{TITLE_EDITABLE}}/>
     <key>Width</key>
-    <integer>${WIDTH}</integer>
+    <integer>{{WIDTH}}</integer>
   </dict>
 </plist>

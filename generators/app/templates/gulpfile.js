@@ -11,10 +11,10 @@ assert.ok(pkg && pkg.version, 'version required');
 var gulp = require('gulp'),
     gulp_concat = require('gulp-concat'),
     gulp_copy = require('gulp-copy'),
-    gulp_htmlmin = require('gulp-htmlmin'),
     gulp_eslint = require('gulp-eslint'),
+    gulp_htmlmin = require('gulp-htmlmin'),
+    gulp_mustache = require('gulp-mustache'),
     gulp_rename = require('gulp-rename'),
-    gulp_replace = require('gulp-replace'),
     gulp_sass = require('gulp-sass'),
     gulp_sourcemaps = require('gulp-sourcemaps'),
     gulp_uglify = require('gulp-uglify'),
@@ -31,28 +31,26 @@ gulp.task('lint', function () {
 });
 
 gulp.task('dizmo:plist', function () {
-    var toStringTag = function (value) {
-        return '<string>{0}</string>'.replace('{0}', value);
-    };
-
     return gulp.src('.dizmo.plist')
-        .pipe(gulp_replace('${ALLOW_RESIZE}', false))
-        .pipe(gulp_replace('${API_VERSION}', 1.3))
-        .pipe(gulp_replace('${BUNDLE_DISPLAY_NAME}', pkg.name))
-        .pipe(gulp_replace('${BUNDLE_IDENTIFIER}', '<%= bundleId %>'))
-        .pipe(gulp_replace('${BUNDLE_NAME}', pkg.name))
-        .pipe(gulp_replace('${BUNDLE_VERSION}', pkg.version))
-        .pipe(gulp_replace('${CATEGORY}', 'none'))
-        .pipe(gulp_replace('${DESCRIPTION}', pkg.description))
-        .pipe(gulp_replace('${ELEMENTS_VERSION}', '1.0'))
-        .pipe(gulp_replace('${FORCE_UPDATE}', false))
-        .pipe(gulp_replace('${HEIGHT}', 240))
-        .pipe(gulp_replace('${HIDDEN_DIZMO}', false))
-        .pipe(gulp_replace('${MAIN_HTML}', 'index.html'))
-        .pipe(gulp_replace('${MIN_SPACE_VERSION}', '0.0.0'))
-        .pipe(gulp_replace('${TAGS}', pkg.keywords.map(toStringTag).join('')))
-        .pipe(gulp_replace('${TITLE_EDITABLE}', true))
-        .pipe(gulp_replace('${WIDTH}', 480))
+        .pipe(gulp_mustache({
+            ALLOW_RESIZE: false,
+            API_VERSION: '1.3',
+            BUNDLE_DISPLAY_NAME: pkg.name,
+            BUNDLE_IDENTIFIER: '<%= bundleId %>',
+            BUNDLE_NAME: pkg.name,
+            BUNDLE_VERSION: pkg.version,
+            CATEGORY: 'none',
+            DESCRIPTION: pkg.description,
+            ELEMENTS_VERSION: '1.0',
+            FORCE_UPDATE: false,
+            HEIGHT: 240,
+            HIDDEN_DIZMO: false,
+            MAIN_HTML: 'index.html',
+            MIN_SPACE_VERSION: '0.0.0',
+            TAGS: pkg.keywords,
+            TITLE_EDITABLE: true,
+            WIDTH: 480
+        }))
         .pipe(gulp_rename('Info.plist'))
         .pipe(gulp.dest('build/{0}/'.replace('{0}', pkg.name)));
 });
@@ -147,4 +145,4 @@ gulp.task('zip', ['all'], function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('default', ['lint', 'all']);
+gulp.task('default', ['lint', 'zip']);

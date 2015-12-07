@@ -5,6 +5,7 @@ module.exports = {
         'node': true
     },
     'globals': {
+        'assert': false,
         'dizmo': false
     },
     'rules': {
