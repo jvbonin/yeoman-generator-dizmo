@@ -60,6 +60,9 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('assets/'),
             this.destinationPath('assets/'));
         this.fs.copy(
+            this.templatePath('gulp/'),
+            this.destinationPath('gulp/'));
+        this.fs.copy(
             this.templatePath('help/'),
             this.destinationPath('help/'));
         this.fs.copyTpl(
