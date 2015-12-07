@@ -62,9 +62,9 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copy(
             this.templatePath('help/'),
             this.destinationPath('help/'));
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('src/'),
-            this.destinationPath('src/'));
+            this.destinationPath('src/'), this.properties);
 
         this.fs.copy(
             this.templatePath('.eslintrc.js'),
