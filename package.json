@@ -32,7 +32,10 @@
   "license": "ISC",
   "name": "generator-dizmo",
   "main": "generators/index.js",
-  "repository": "dizmo/generator-dizmo",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/dizmo/yeoman-generator-dizmo"
+  },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
