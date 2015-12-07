@@ -67,14 +67,14 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('src/'));
 
         this.fs.copy(
-            this.templatePath('.dizmo.plist'),
-            this.destinationPath('.dizmo.plist'));
-        this.fs.copy(
             this.templatePath('.eslintrc.js'),
             this.destinationPath('.eslintrc.js'));
         this.fs.copy(
             this.templatePath('.gitignore'),
             this.destinationPath('.gitignore'));
+        this.fs.copy(
+            this.templatePath('.info.plist'),
+            this.destinationPath('.info.plist'));
         this.fs.copyTpl(
             this.templatePath('gulpfile.js'),
             this.destinationPath('gulpfile.js'), this.properties);
