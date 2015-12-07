@@ -1,3 +1,5 @@
 build
 coverage
 node_modules
+src/style/style.css
+src/style/style.css.map
