@@ -10,9 +10,11 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run make -- lint`: Lints all JavaScript files under `src/**/*.js`; this task can be shortened to `npm run lint`.
 
-* `npm run make -- all`: Builds the dizmo under `build/<%= dizmoName %>` &ndash; this task depends on other tasks which are not elaborated here further; see the `gulpfile.js` for details.
+* `npm run make -- dizmo:all`: Builds the dizmo under `build/<%= dizmoName %>` &ndash; this task depends on other tasks which are not elaborated here further; see the `gulpfile.js` for details.
 
-* `npm run make -- pack`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all tasks and compressing the resulting dizmo as a ZIP archive (but with a `dzm` extension); this task can be shortened to `npm run make`.
+* `npm run make -- dizmo:zip`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all tasks - except linting - and compressing the resulting dizmo as a ZIP archive (but with a `dzm` extension).
+
+Running `npm run make` is equivalent to the tasks `lint` followed by a `dizmo:zip`.
 
 ## Testing
 
