@@ -56,34 +56,34 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('assets/'),
-            this.destinationPath('assets/'));
-        this.fs.copy(
+            this.destinationPath('assets/'), this.properties);
+        this.fs.copyTpl(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
+            this.destinationPath('gulp/'), this.properties);
         this.fs.copy(
             this.templatePath('help/'),
-            this.destinationPath('help/'));
+            this.destinationPath('help/'), this.properties);
         this.fs.copyTpl(
             this.templatePath('src/'),
             this.destinationPath('src/'), this.properties);
 
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('.eslintrc.js'),
-            this.destinationPath('.eslintrc.js'));
-        this.fs.copy(
+            this.destinationPath('.eslintrc.js'), this.properties);
+        this.fs.copyTpl(
             this.templatePath('.gitignore'),
-            this.destinationPath('.gitignore'));
-        this.fs.copy(
-            this.templatePath('.info.plist'),
-            this.destinationPath('.info.plist'));
+            this.destinationPath('.gitignore'), this.properties);
         this.fs.copyTpl(
             this.templatePath('gulpfile.js'),
             this.destinationPath('gulpfile.js'), this.properties);
-        this.fs.copy(
+        this.fs.copyTpl(
+            this.templatePath('.info.plist'),
+            this.destinationPath('.info.plist'), this.properties);
+        this.fs.copyTpl(
             this.templatePath('LICENSE'),
-            this.destinationPath('LICENSE'));
+            this.destinationPath('LICENSE'), this.properties);
         this.fs.copyTpl(
             this.templatePath('package.json'),
             this.destinationPath('package.json'), this.properties);
