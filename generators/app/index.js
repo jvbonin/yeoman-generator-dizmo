@@ -5,9 +5,6 @@ var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
 var lodash = require('lodash');
-var path = require('path');
-var os = require('os');
-
 var gitUserName = require('git-user-name');
 var gitUserEmail = require('git-user-email');
 
@@ -15,33 +12,39 @@ module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
 
-        this.argument('appname', {
+        this.option('install-to', {
+            defaults: process.env.DIZMO_INSTALL_TO || '',
+            desc: 'Dizmo installation path',
+            type: String, alias: 'i'
+        });
+
+        this.argument('dizmoName', {
             type: String, required: false
         });
-        if (this.appname) {
-            this.appname = lodash.capitalize(
-                lodash.camelCase(this.appname));
+        if (this.dizmoName) {
+            this.dizmoName = lodash.capitalize(
+                lodash.camelCase(this.dizmoName));
         } else {
-            this.appname = lodash.capitalize(
+            this.dizmoName = lodash.capitalize(
                 lodash.camelCase(process.cwd()
                     .split('/').pop().split('.').slice(0, -1).join()));
         }
-        if (!this.appname) {
-            this.appname = 'MyDizmo';
+        if (!this.dizmoName) {
+            this.dizmoName = 'MyDizmo';
         }
 
         this.argument('dizmoDescription', {
             type: String, required: false
         });
         if (!this.dizmoDescription) {
-            this.dizmoDescription = lodash.startCase(this.appname);
+            this.dizmoDescription = lodash.startCase(this.dizmoName);
         }
 
         this.argument('bundleId', {
             type: String, required: false
         });
         if (!this.bundleId) {
-            this.bundleId = lodash.snakeCase(this.appname);
+            this.bundleId = lodash.snakeCase(this.dizmoName);
             this.bundleId = 'com.example.' + this.bundleId;
         } else {
             this.bundleId = lodash.snakeCase(this.bundleId);
@@ -78,7 +81,7 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
-            default: this.appname
+            default: this.dizmoName
         }, {
             type: 'input',
             name: 'dizmoDescription',
@@ -105,6 +108,7 @@ module.exports = yeoman.generators.Base.extend({
 
         this.prompt(prompts, function (properties) {
             this.properties = lodash.assign(properties, {
+                installTo: this.options['install-to'],
                 _: lodash
             });
             done();
@@ -148,6 +152,6 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     install: function () {
-        this.installDependencies();
+        this.npmInstall();
     }
 });

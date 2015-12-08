@@ -1,6 +1,10 @@
 {
     "dizmo": {
-        "install-to": ""
+        "install-to": "<%= installTo %>",
+        "settings": {
+            "bundle-identifier": "<%= bundleId %>",
+            "height": 240, "width": 480
+        }
     },
     "person": {
         "name": "<%= personName %>",
@@ -21,6 +25,7 @@
         "gulp-uglify": "^1.5.1",
         "gulp-ver": "^0.1.0",
         "gulp-zip": "^3.0.2",
+        "lodash": "^3.10.1",
         "require-dir": "^0.3.0"
     },
     "keywords": [
