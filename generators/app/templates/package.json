@@ -10,6 +10,9 @@
         "name": "<%= personName %>",
         "email": "<%= personEmail %>"
     },
+    "dependencies": {
+        "assert": "^1.3.0"
+    },
     "description": "<%= dizmoDescription %>",
     "devDependencies": {
         "del": "^2.1.0",

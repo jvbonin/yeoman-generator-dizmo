@@ -1,7 +1,7 @@
 var showBack = function () { dizmo.showBack(); };
-assert(showBack);
+assert.ok(showBack);
 var showFront = function () { dizmo.showFront(); };
-assert(showFront);
+assert.ok(showFront);
 
 window.document.addEventListener('dizmoready', function() {
     document.getElementById('done').onclick = function() {

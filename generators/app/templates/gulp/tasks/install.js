@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var path = require('path');
 var os = require('os');
 
-gulp.task('install', ['dizmo:zip'], function () {
+gulp.task('install', ['lint', 'dizmo:all'], function () {
     var install_to = process.env.DIZMO_INSTALL_TO
         || pkg.dizmo['install-to']
         || '';
