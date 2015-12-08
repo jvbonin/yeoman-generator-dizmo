@@ -17,7 +17,7 @@ Add your screenshots measuring 400 times 275 pixes that illustrate your dizmo.
 
 Describe what can be done with the dizmo and how it should be used.
 
-## What is new in VX.Y.Z
+## What is new in vX.Y.Z
 
 Explain the improvements of the newest dizmo, then list those of each published version.
 
