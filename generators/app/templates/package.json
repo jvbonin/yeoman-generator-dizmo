@@ -1,4 +1,7 @@
 {
+    "dizmo": {
+        "deploy-to": "<%= path.join(os.homedir(), bundleId) %>"
+    },
     "person": {
         "name": "<%= personName %>",
         "email": "<%= personEmail %>"
@@ -21,7 +24,7 @@
         "require-dir": "^0.3.0"
     },
     "keywords": [
-        "<%= dizmoNameUnderscored %>",
+        "<%= _.snakeCase(dizmoName) %>",
         "dizmo"
     ],
     "license": "ISC",

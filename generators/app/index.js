@@ -1,16 +1,45 @@
 'use strict';
 
-var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
-var toUnderscoreCase = function (string) {
-    return string.replace(/\.?([A-Z]+)/g, function (_, part) {
-        return '_' + part.toLowerCase();
-    }).replace(/^_/, '');
-};
+var lodash = require('lodash');
+var path = require('path');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
+    constructor: function () {
+        yeoman.generators.Base.apply(this, arguments);
+
+        this.argument('appname', {
+            type: String, required: false
+        });
+        if (this.appname) {
+            this.appname = lodash.capitalize(
+                lodash.camelCase(this.appname));
+        } else {
+            this.appname = lodash.capitalize(
+                lodash.camelCase(process.cwd()
+                    .split('/').pop().split('.').slice(0, -1).join()));
+        }
+        if (this.appname.length === 0) {
+            this.appname = 'MyDizmo';
+        }
+
+        this.argument('bundleId', {
+            type: String, required: false
+        });
+        if (this.bundleId) {
+            this.bundleId = lodash.snakeCase(this.bundleId);
+        } else {
+            this.bundleId = lodash.snakeCase(this.appname);
+            this.bundleId = 'com.dizmo.' + this.bundleId;
+        }
+        if (this.bundleId.length === 0) {
+            this.appname = 'com.dizmo.my_dizmo';
+        }
+    },
     prompting: function () {
         var done = this.async();
 
@@ -22,7 +51,7 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
-            default: 'MyDizmo'
+            default: this.appname
         }, {
             type: 'input',
             name: 'dizmoDescription',
@@ -32,7 +61,7 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'bundleId',
             message: 'And its bundle ID?',
-            default: 'com.example.my_dizmo'
+            default: this.bundleId
         }, {
             type: 'input',
             name: 'personName',
@@ -48,9 +77,10 @@ module.exports = yeoman.generators.Base.extend({
         }];
 
         this.prompt(prompts, function (properties) {
-            this.properties = properties;
-            this.properties.dizmoNameUnderscored =
-                toUnderscoreCase(this.properties.dizmoName);
+            this.properties = lodash.assign(properties, {
+                _: lodash, path: path, os: os
+            });
+
             done();
         }.bind(this));
     },
@@ -68,7 +98,6 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copyTpl(
             this.templatePath('src/'),
             this.destinationPath('src/'), this.properties);
-
         this.fs.copyTpl(
             this.templatePath('.eslintrc.js'),
             this.destinationPath('.eslintrc.js'), this.properties);
