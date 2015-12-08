@@ -11,6 +11,8 @@
   },
   "description": "Dizmo generator",
   "devDependencies": {
+    "git-user-email": "^0.2.1",
+    "git-user-name": "^1.1.2",
     "gulp": "^3.6.0",
     "gulp-coveralls": "^0.1.0",
     "gulp-eslint": "^1.0.0",

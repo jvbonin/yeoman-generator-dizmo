@@ -8,6 +8,9 @@ var lodash = require('lodash');
 var path = require('path');
 var os = require('os');
 
+var gitUserName = require('git-user-name');
+var gitUserEmail = require('git-user-email');
+
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -23,21 +26,45 @@ module.exports = yeoman.generators.Base.extend({
                 lodash.camelCase(process.cwd()
                     .split('/').pop().split('.').slice(0, -1).join()));
         }
-        if (this.appname.length === 0) {
+        if (!this.appname) {
             this.appname = 'MyDizmo';
+        }
+
+        this.argument('dizmoDescription', {
+            type: String, required: false
+        });
+        if (!this.dizmoDescription) {
+            this.dizmoDescription = lodash.startCase(this.appname);
         }
 
         this.argument('bundleId', {
             type: String, required: false
         });
-        if (this.bundleId) {
-            this.bundleId = lodash.snakeCase(this.bundleId);
-        } else {
+        if (!this.bundleId) {
             this.bundleId = lodash.snakeCase(this.appname);
-            this.bundleId = 'com.dizmo.' + this.bundleId;
+            this.bundleId = 'com.example.' + this.bundleId;
+        } else {
+            this.bundleId = lodash.snakeCase(this.bundleId);
         }
-        if (this.bundleId.length === 0) {
-            this.appname = 'com.dizmo.my_dizmo';
+
+        this.argument('personName', {
+            type: String, required: false
+        });
+        if (!this.personName) {
+            this.personName = gitUserName();
+        }
+        if (!this.personName) {
+            this.personName = process.env.USER || '';
+        }
+
+        this.argument('personEmail', {
+            type: String, required: false
+        });
+        if (!this.personEmail) {
+            this.personEmail = gitUserEmail();
+        }
+        if (!this.personEmail) {
+            this.personEmail = process.env.MAIL || '';
         }
     },
     prompting: function () {
@@ -56,7 +83,7 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'dizmoDescription',
             message: 'Describe it:',
-            default: 'A hello-world dizmo'
+            default: this.dizmoDescription
         }, {
             type: 'input',
             name: 'bundleId',
@@ -66,21 +93,20 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'personName',
             message: 'What\'s your name?',
-            default: 'Name Surname',
+            default: this.personName,
             store: true
         }, {
             type: 'input',
             name: 'personEmail',
             message: 'And your email?',
-            default: 'name.surname@example.com',
+            default: this.personEmail,
             store: true
         }];
 
         this.prompt(prompts, function (properties) {
             this.properties = lodash.assign(properties, {
-                _: lodash, path: path, os: os
+                _: lodash
             });
-
             done();
         }.bind(this));
     },

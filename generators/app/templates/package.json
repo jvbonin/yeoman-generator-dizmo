@@ -1,6 +1,6 @@
 {
     "dizmo": {
-        "deploy-to": "<%= path.join(os.homedir(), bundleId) %>"
+        "install-to": ""
     },
     "person": {
         "name": "<%= personName %>",
@@ -24,8 +24,7 @@
         "require-dir": "^0.3.0"
     },
     "keywords": [
-        "<%= _.snakeCase(dizmoName) %>",
-        "dizmo"
+        "dizmo", "<%= _.snakeCase(dizmoName) %>"
     ],
     "license": "ISC",
     "name": "<%= dizmoName %>",
@@ -35,6 +34,8 @@
         "url": ""
     },
     "scripts": {
+        "clean": "./node_modules/gulp/bin/gulp.js clean",
+        "install": "./node_modules/gulp/bin/gulp.js install",
         "lint": "./node_modules/gulp/bin/gulp.js lint",
         "make": "./node_modules/gulp/bin/gulp.js",
         "test": "exit 0"
