@@ -5,14 +5,15 @@
     "url": "http://www.blackhan.com/"
   },
   "dependencies": {
+    "git-user-email": "^0.2.1",
+    "git-user-name": "^1.1.2",
     "yeoman-generator": "^0.21.1",
     "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
+    "yosay": "^1.0.2",
+    "lodash": "^3.10.1"
   },
   "description": "Dizmo generator",
   "devDependencies": {
-    "git-user-email": "^0.2.1",
-    "git-user-name": "^1.1.2",
     "gulp": "^3.6.0",
     "gulp-coveralls": "^0.1.0",
     "gulp-eslint": "^1.0.0",
@@ -21,7 +22,6 @@
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
-    "lodash": "^3.10.1",
     "yeoman-assert": "^2.0.0"
   },
   "files": [
