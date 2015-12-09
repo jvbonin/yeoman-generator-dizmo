@@ -132,7 +132,7 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('.eslintrc.js'),
             this.destinationPath('.eslintrc.js'), this.properties);
         this.fs.copyTpl(
-            this.templatePath('.gitignore'),
+            this.templatePath('.npmignore'),
             this.destinationPath('.gitignore'), this.properties);
         this.fs.copyTpl(
             this.templatePath('gulpfile.js'),
