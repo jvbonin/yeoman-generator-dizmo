@@ -1,5 +1,6 @@
 var pkg = require('../package.js'),
-    lodash = require('lodash');
+    lodash = require('lodash'),
+    path = require('path');
 var gulp = require('gulp'),
     gulp_plist = require('gulp-plist'),
     gulp_rename = require('gulp-rename');
@@ -12,5 +13,5 @@ gulp.task('info.plist', function () {
     return gulp.src('.info.plist')
         .pipe(gulp_plist(settings))
         .pipe(gulp_rename('Info.plist'))
-        .pipe(gulp.dest('build/{0}/'.replace('{0}', pkg.name)));
+        .pipe(gulp.dest(path.join('build', pkg.name)));
 });

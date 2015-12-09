@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
-    del = require('del');
+    rimraf = require('rimraf');
 
 gulp.task('clean:build', function () {
-    return del.sync(['build/']);
+    return rimraf.sync('build');
 });
 gulp.task('clean', ['clean:build']);

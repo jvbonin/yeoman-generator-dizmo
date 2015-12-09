@@ -1,6 +1,8 @@
 var pkg = require('../package.js'),
     browserify = require('browserify'),
     fs = require('fs'),
+    lodash = require('lodash'),
+    path = require('path'),
     source = require('vinyl-source-stream');
 
 var gulp = require('gulp'),
@@ -8,19 +10,37 @@ var gulp = require('gulp'),
     gulp_streamify = require('gulp-streamify');
 
 gulp.task('library.js:browserify', function () {
-    var tpl = 'global.{0} = require(\'{0}\');\n',
-        lib = '';
+    var tpl = 'global.{0} = require(\'{1}\');\n',
+        buf = '';
 
     if (pkg.dependencies) for (var dep in pkg.dependencies) {
         if (pkg.dependencies.hasOwnProperty(dep)) {
-            lib += tpl.replace(/\{0\}/g, dep);
+            var snake = lodash.snakeCase(dep),
+                camel = lodash.camelCase(dep);
+            if (camel !== snake) {
+                buf += tpl.replace('{0}', dep).replace('{1}', camel);
+                buf += tpl.replace('{0}', dep).replace('{1}', snake);
+            } else {
+                buf += tpl.replace('{0}', dep).replace('{1}', snake);
+            }
         }
     }
 
-    fs.writeFileSync('./src/lib/library.js', lib);
-    return browserify('src/lib/library.js').bundle()
+    var file_path = path.join('build', pkg.name, 'lib'),
+        file_name = path.join(file_path, 'library.js');
+
+    if (!fs.existsSync(path.join('build')))
+        fs.mkdirSync(path.join('build'));
+    if (!fs.existsSync(path.join('build', pkg.name)))
+        fs.mkdirSync(path.join('build', pkg.name));
+    if (!fs.existsSync(path.join('build', pkg.name, 'lib')))
+        fs.mkdirSync(path.join('build', pkg.name, 'lib'));
+
+    fs.writeFileSync(file_name, buf);
+
+    return browserify(file_name).bundle()
         .pipe(source('library.js'))
         .pipe(gulp_streamify(gulp_uglify()))
-        .pipe(gulp.dest('build/{0}/lib/'.replace('{0}', pkg.name)));
+        .pipe(gulp.dest(file_path));
 });
 gulp.task('library.js', ['library.js:browserify']);

@@ -1,7 +1,7 @@
-var pkg = require('../package.js');
-var gulp = require('gulp');
-var path = require('path');
-var os = require('os');
+var pkg = require('../package.js'),
+    gulp = require('gulp'),
+    os = require('os'),
+    path = require('path');
 
 gulp.task('install', ['lint', 'dizmo:all'], function () {
     var install_to = process.env.DIZMO_INSTALL_TO

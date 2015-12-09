@@ -1,5 +1,6 @@
 var pkg = require('../package.js'),
-    del = require('del');
+    path = require('path'),
+    rimraf = require('rimraf');
 
 var gulp = require('gulp'),
     gulp_copy = require('gulp-copy'),
@@ -7,15 +8,15 @@ var gulp = require('gulp'),
 
 gulp.task('help.zip:copy', function () {
     return gulp.src('help/**/*')
-        .pipe(gulp_copy('build/{0}/help/'.replace('{0}', pkg.name), {
+        .pipe(gulp_copy(path.join('build', pkg.name, 'help'), {
             prefix: 0
         }));
 });
 gulp.task('help.zip:compress', ['help.zip:copy'], function () {
     return gulp.src('build/{0}/help/**/*'.replace('{0}', pkg.name))
         .pipe(gulp_zip('help.zip'))
-        .pipe(gulp.dest('build/{0}/'.replace('{0}', pkg.name)));
+        .pipe(gulp.dest(path.join('build', pkg.name)));
 });
 gulp.task('help.zip', ['help.zip:compress'], function () {
-    return del.sync(['build/{0}/help/'.replace('{0}', pkg.name)]);
+    return rimraf.sync(path.join('build', pkg.name, 'help'));
 });

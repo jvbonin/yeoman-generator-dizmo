@@ -1,4 +1,6 @@
-var pkg = require('../package.js');
+var pkg = require('../package.js'),
+    path = require('path');
+
 var gulp = require('gulp'),
     gulp_copy = require('gulp-copy'),
     gulp_sass = require('gulp-sass'),
@@ -6,7 +8,7 @@ var gulp = require('gulp'),
 
 gulp.task('style.css:copy', function () {
     return gulp.src(['src/style/**/*', '!src/style/**/*.scss'])
-        .pipe(gulp_copy('build/{0}/style/'.replace('{0}', pkg.name), {
+        .pipe(gulp_copy(path.join('build', pkg.name, 'style'), {
             prefix: 2
         }));
 });
@@ -16,5 +18,5 @@ gulp.task('style.css', ['style.css:copy'], function () {
         .pipe(gulp_sass({outputStyle: 'compressed'})
             .on('error', gulp_sass.logError))
         .pipe(gulp_sourcemaps.write('./'))
-        .pipe(gulp.dest('build/{0}/style/'.replace('{0}', pkg.name)));
+        .pipe(gulp.dest(path.join('build', pkg.name, 'style')));
 });

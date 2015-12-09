@@ -1,6 +1,5 @@
 build
 coverage
 node_modules
-src/lib/library.js
 src/style/style.css
 src/style/style.css.map

@@ -1,4 +1,5 @@
-var pkg = require('../package.js');
+var pkg = require('../package.js'),
+    path = require('path');
 var gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
 
@@ -10,5 +11,5 @@ gulp.task('index.html', function () {
             minifyJS: true,
             removeComments: true
         }))
-        .pipe(gulp.dest('build/{0}/'.replace('{0}', pkg.name)));
+        .pipe(gulp.dest(path.join('build', pkg.name)));
 });
