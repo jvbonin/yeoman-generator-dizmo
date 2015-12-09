@@ -18,10 +18,10 @@ gulp.task('library.js:browserify', function () {
             var snake = lodash.snakeCase(dep),
                 camel = lodash.camelCase(dep);
             if (camel !== snake) {
-                buf += tpl.replace('{0}', dep).replace('{1}', camel);
-                buf += tpl.replace('{0}', dep).replace('{1}', snake);
+                buf += tpl.replace('{1}', dep).replace('{0}', camel);
+                buf += tpl.replace('{1}', dep).replace('{0}', snake);
             } else {
-                buf += tpl.replace('{0}', dep).replace('{1}', snake);
+                buf += tpl.replace('{1}', dep).replace('{0}', snake);
             }
         }
     }
