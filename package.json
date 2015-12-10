@@ -1,47 +1,47 @@
 {
-    "author": {
-        "email": "hasan.karahan@blackhan.com",
-        "name": "Hasan Karahan",
-        "url": "http://www.blackhan.com/"
-    },
-    "dependencies": {
-        "chalk": "^1.0.0",
-        "git-user-email": "^0.2.1",
-        "git-user-name": "^1.1.2",
-        "lodash": "^3.10.1",
-        "yeoman-generator": "^0.21.1",
-        "yosay": "^1.0.2"
-    },
-    "description": "Dizmo generator",
-    "devDependencies": {
-        "gulp": "^3.6.0",
-        "gulp-coveralls": "^0.1.0",
-        "gulp-eslint": "^1.0.0",
-        "gulp-exclude-gitignore": "^1.0.0",
-        "gulp-istanbul": "^0.9.0",
-        "gulp-mocha": "^2.0.0",
-        "gulp-nsp": "^2.1.0",
-        "gulp-plumber": "^1.0.0",
-        "yeoman-assert": "^2.0.0"
-    },
-    "files": [
-        "generators"
-    ],
-    "homepage": "http://dizmo.com/",
-    "keywords": [
-        "yeoman-generator",
-        "dizmo"
-    ],
-    "license": "ISC",
-    "name": "generator-dizmo",
-    "main": "generators/index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/dizmo/yeoman-generator-dizmo"
-    },
-    "scripts": {
-        "prepublish": "gulp prepublish",
-        "test": "gulp"
-    },
-    "version": "1.5.5"
+  "author": {
+    "email": "hasan.karahan@blackhan.com",
+    "name": "Hasan Karahan",
+    "url": "http://www.blackhan.com/"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "git-user-email": "^0.2.1",
+    "git-user-name": "^1.1.2",
+    "lodash": "^3.10.1",
+    "yeoman-generator": "^0.21.1",
+    "yosay": "^1.0.2"
+  },
+  "description": "Dizmo generator",
+  "devDependencies": {
+    "gulp": "^3.6.0",
+    "gulp-coveralls": "^0.1.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.9.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-plumber": "^1.0.0",
+    "yeoman-assert": "^2.0.0"
+  },
+  "files": [
+    "generators"
+  ],
+  "homepage": "http://dizmo.com/",
+  "keywords": [
+    "yeoman-generator",
+    "dizmo"
+  ],
+  "license": "ISC",
+  "name": "generator-dizmo",
+  "main": "generators/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dizmo/yeoman-generator-dizmo"
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "version": "1.5.6"
 }
