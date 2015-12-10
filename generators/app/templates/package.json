@@ -19,7 +19,7 @@
         "browserify": "^12.0.1",
         "gulp": "^3.9.0",
         "gulp-concat": "^2.6.0",
-        "gulp-copy": "0.0.2",
+        "gulp-copy": "^0.0.2",
         "gulp-eslint": "^1.1.1",
         "gulp-htmlmin": "^1.2.0",
         "gulp-plist": "^0.1.0",
