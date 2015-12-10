@@ -152,6 +152,6 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     install: function () {
-        this.npmInstall();
+        this.npmInstall('', {'cache-min': 604800});
     }
 });
