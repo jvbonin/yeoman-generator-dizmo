@@ -2,7 +2,7 @@ var assert = require('assert'),
     fs = require('fs'),
     lodash = require('lodash');
 
-var pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+var pkg = JSON.parse(fs.readFileSync('package.json'));
 
 assert.ok(pkg,
     'packagerequired');

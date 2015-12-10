@@ -8,7 +8,6 @@ gulp.task('dizmo:all', [
     'assets.dir',
     'help.zip',
     'style.css',
-    'library.js',
     'index.js',
     'index.html',
     'info.plist'

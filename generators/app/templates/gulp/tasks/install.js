@@ -12,7 +12,8 @@ gulp.task('install', ['lint', 'dizmo:all'], function () {
         install_to = path.join(os.homedir(), install_to);
     }
 
-    return gulp.src('build/{0}/**/*'.replace('{0}', pkg.name)).pipe(gulp.dest(
-        path.join(install_to, pkg.dizmo.settings['bundle-identifier'])
-    ));
+    return gulp
+        .src('build/{0}/**/*'.replace('{0}', pkg.name))
+        .pipe(gulp.dest(path.join(install_to,
+            pkg.dizmo.settings['bundle-identifier'])));
 });
