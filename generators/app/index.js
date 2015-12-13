@@ -120,9 +120,6 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('src/'),
             this.destinationPath('src/'), this.properties);
         this.fs.copyTpl(
-            this.templatePath('.eslintrc.js'),
-            this.destinationPath('.eslintrc.js'), this.properties);
-        this.fs.copyTpl(
             this.templatePath('.npmignore'),
             this.destinationPath('.gitignore'), this.properties);
         this.fs.copyTpl(
