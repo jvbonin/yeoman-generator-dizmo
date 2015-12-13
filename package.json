@@ -41,5 +41,5 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "version": "1.6.1"
+  "version": "1.6.2"
 }
