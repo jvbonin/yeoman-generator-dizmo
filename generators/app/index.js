@@ -1,12 +1,9 @@
 'use strict';
 
 var chalk = require('chalk');
+var lodash = require('lodash');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
-
-var lodash = require('lodash');
-var gitUserName = require('git-user-name');
-var gitUserEmail = require('git-user-email');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -54,18 +51,12 @@ module.exports = yeoman.generators.Base.extend({
             type: String, required: false
         });
         if (!this.personName) {
-            this.personName = gitUserName();
-        }
-        if (!this.personName) {
             this.personName = process.env.USER || '';
         }
 
         this.argument('personEmail', {
             type: String, required: false
         });
-        if (!this.personEmail) {
-            this.personEmail = gitUserEmail();
-        }
         if (!this.personEmail) {
             this.personEmail = process.env.MAIL || '';
         }
