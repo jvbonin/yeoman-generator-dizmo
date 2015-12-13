@@ -3,18 +3,20 @@ var pkg = require('../package.js'),
     os = require('os'),
     path = require('path');
 
-gulp.task('install', ['lint', 'build:all'], function () {
-    var install_to = process.env.DIZMO_INSTALL_TO
-        || pkg.dizmo['install-to']
-        || '';
+var install_to = process.env.DIZMO_INSTALL_TO
+    || pkg.dizmo['install-to']
+    || '';
 
-    if (install_to) {
+if (install_to) {
+    gulp.task('install', ['build:all'], function () {
         if (path.isAbsolute(install_to) === false) {
             install_to = path.join(os.homedir(), install_to);
         }
 
-        gulp.src('build/{0}/**/*'.replace('{0}', pkg.name))
+        return gulp.src('build/{0}/**/*'.replace('{0}', pkg.name))
             .pipe(gulp.dest(path.join(install_to,
                 pkg.dizmo.settings['bundle-identifier'])));
-    }
-});
+    });
+} else {
+    gulp.task('install', ['build:all']);
+}
