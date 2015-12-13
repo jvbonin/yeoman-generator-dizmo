@@ -15,20 +15,13 @@
         "gulp": "^3.9.0",
         "gulp-concat": "^2.6.0",
         "gulp-copy": "^0.0.2",
-        "gulp-eslint": "^1.1.1",
-        "gulp-htmlmin": "^1.2.0",
         "gulp-plist": "^0.1.0",
         "gulp-rename": "^1.2.2",
-        "gulp-sass": "^2.1.0",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-streamify": "^1.0.2",
-        "gulp-uglify": "^1.5.1",
         "gulp-ver": "^0.1.0",
         "gulp-zip": "^3.0.2",
         "lodash": "^3.10.1",
         "require-dir": "^0.3.0",
-        "rimraf": "^2.4.4",
-        "vinyl-source-stream": "^1.1.0"
+        "rimraf": "^2.4.4"
     },
     "keywords": [
         "dizmo", "<%= _.snakeCase(dizmoName) %>"
