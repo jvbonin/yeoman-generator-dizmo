@@ -16,7 +16,7 @@ gulp.task('library.js:browserify', function () {
     if (pkg.dependencies) for (var dep in pkg.dependencies) {
         if (pkg.dependencies.hasOwnProperty(dep)) {
             buf += tpl
-                .replace('{0}', lodash.snakeCase(dep).toUpperCase())
+                .replace('{0}', lodash.snakeCase(dep))
                 .replace('{1}', dep);
         }
     }

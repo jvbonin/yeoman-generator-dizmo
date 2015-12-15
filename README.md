@@ -256,6 +256,92 @@ Once your dizmo is build, a `build/` folder with the following content will be a
 * `MyProject1/index.js`: the main JavaScript;
 * `MyProject1/style/style.css`: CSS style sheets.
 
+## Advanced sub-generators
+
+Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced sub-generators `dizmo:ext` and `dizmo:lib`.
+
+Both sub-generators require the basic skeleton to be setup with `yo dizmo` (or equivalently with `yo dizmo:app`) first!
+
+It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original build system has been left in place. Using this feature you can later-on convert your basic dizmo projects to more advanced versions.
+
+### dizmo:ext - extended skeleton
+
+Invoke the `dizmo:ext` sub-generator (after having invoked `yo dizmo`):
+
+    yo dizmo
+    yo dizmo:ext
+
+It will create or modify the regular skeleton:
+
+    my-project-2.git $ tree
+    .
+    ├── gulp
+    │   └── tasks
+    │       ├── build.js
+    │       ├── install.js
+    │       ├── lint.js
+    │       └── style-css.js
+    ├── package.json
+    └── src
+        ├── index.html
+        ├── index.js
+        └── style
+            └── style.scss
+
+The extended features are:
+
+* **Linting:** Run `npm run lint` to manually start linting. But since now `npm run make` and `npm run install` are dependent on it, there is no need to manually start it.
+
+* **SCSS:** Instead of `style.css` you can now work with `style.scss` style sheets.
+
+* **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
+
+* **Source maps:** To allow easy debugging the minified scripts and styles will be accompanied by corresponding source maps.
+
+### dizmo:lib - browserify integration
+
+Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
+
+    yo dizmo
+    yo dizmo:ext
+    yo dizmo:lib
+
+You could omit `yo dizmo:ext` and directly run `yo dizmo:lib`, but we assume that if you want to have a browserify integration then you may also want to work on the extended skeleton.
+
+Let's have a look at the changes:
+
+    my-project-3.git $ tree
+    .
+    ├── gulp
+    │   └── tasks
+    │       ├── build.js
+    │       └── library-js.js
+    ├── package.json
+    └── src
+        └── index.html
+
+If you look at the content of `index.html` then you'll see that an additional `libary.js` script in included:
+
+    <script src="lib/library.js"></script>
+
+This script is *not* available in the skeleton, but will be constructed on the fly during the build process: It will contain the browserified content of any Node library, which you have designated in `package.json` your dizmo to depend on.
+
+For example, you want to have access to the [lodash](https://lodash.com/) library within your dizmo; then you only have to run:
+
+    npm install --save lodash
+
+which add the corresponding dependency in `package.json`:
+
+    "dependencies": {
+        "lodash": "^3.10.1"
+    }
+
+Now, if you run `npm run make` and drag and drop the generated dizmo onto dizmoSpace then you'll notice that the global `lodash` variable references the [lodash](https://lodash.com/) library.
+
+Of course this does not mean, that you cannot include libraries the old fashioned way, by simply downloading the (minified) distribution, putting it in your dizmo project, and referencing it directly from your HTML script: this is still possible!
+
+But declaring a dependency in `package.json` offers you the benefit of semantic versioning.
+
 ## License
 
  © 2015 [dizmo AG, Switzerland](http://dizmo.com/)
