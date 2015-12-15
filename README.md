@@ -205,7 +205,7 @@ If no `install-to` path is provided, then the dizmo is build and will be availab
 
 #### `npm install` vs `npm run-script install`
 
-Please not that `npm install` and `npm run-script install` are *two* different actions! While the former installs all dependencies provided in `package.json` *and* runs the latter, the latter simple builds the dizmo and copies the `*.dzm` file to the `install-to` destination.
+Please note that `npm install` and `npm run-script install` are *two* different actions! While the former installs all dependencies provided in `package.json` *and* runs the latter, the latter simple builds the dizmo and copies the `*.dzm` file to the `install-to` destination.
 
 This means that if you are sure that all your dependencies have been installed and are met, then you can quickly invoke `npm run install` (which is much faster thant `npm install` due to the lack of dependency checks).
 
