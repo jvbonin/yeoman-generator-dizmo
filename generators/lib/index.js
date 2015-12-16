@@ -33,6 +33,8 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('package.json'));
         lodash.assign(pkg.devDependencies, {
             'browserify': '^12.0.1',
+            'gulp-streamify': '^1.0.2',
+            'gulp-uglify': '^1.5.1',
             'vinyl-source-stream': '^1.1.0'
         });
         pkg.devDependencies = sort(
