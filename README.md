@@ -252,8 +252,18 @@ It's in theory possible to run the advanced sub-generators even after having edi
 
 Invoke the `dizmo:ext` sub-generator (after having invoked `yo dizmo`):
 
-    yo dizmo
+    yo dizmo my-dizmo
+    cd my-dizmo/
     yo dizmo:ext
+
+Or simpler by directly enabling `dizmo:ext` sub-generator:
+
+    yo dizmo my-dizmo --ext
+
+This will run the basic generator and then apply on top of it the extended sub-generator. However, when you invoke above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
+
+    yo dizmo my-dizmo --ext --skip-install
+    cd my-dizmo && npm install
 
 It will create or modify the regular skeleton:
 
@@ -286,11 +296,21 @@ The extended features are:
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
-    yo dizmo
+    yo dizmo my-dizmo
+    cd my-dizmo
     yo dizmo:ext
     yo dizmo:lib
 
 You could omit `yo dizmo:ext` and directly run `yo dizmo:lib`, but we assume that if you want to have a browserify integration then you may also want to work on the extended skeleton.
+
+Or again a simpler invocation would be to directly enable the `dizmo:ext` and `dizmo:lib` sub-generators:
+
+    yo dizmo my-dizmo --ext --lib
+
+This will run the basic generator and then apply on top of it the other sub-generators. However, when you invoke above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
+
+    yo dizmo my-dizmo --ext --lib --skip-install
+    cd my-dizmo && npm install
 
 Let's have a look at the changes:
 

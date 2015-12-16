@@ -22,6 +22,16 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'GIT initialization',
             type: Boolean
         });
+        this.option('ext', {
+            defaults: false,
+            desc: 'Extended sub-generator',
+            type: Boolean
+        });
+        this.option('lib', {
+            defaults: false,
+            desc: 'Browserified sub-generator',
+            type: Boolean
+        });
 
         this.argument('dizmoName', {
             type: String, required: false, defaults: 'MyDizmo'
@@ -54,27 +64,23 @@ module.exports = yeoman.generators.Base.extend({
             name: 'dizmoName',
             message: 'Name your dizmo:',
             default: function () {
-                return lodash.capitalize(lodash.camelCase(
-                    self.dizmoName
-                ));
+                return lodash.capitalize(lodash.camelCase(self.dizmoName));
             }
         }, {
             type: 'input',
             name: 'dizmoDescription',
             message: 'Describe it:',
             default: function (p) {
-                return self.dizmoDescription || lodash.startCase(
-                     p.dizmoName
-                );
+                return self.dizmoDescription
+                    || lodash.startCase(p.dizmoName);
             }
         }, {
             type: 'input',
             name: 'bundleId',
             message: 'And its bundle ID?',
             default: function (p) {
-                return self.bundleId || 'com.example.' + lodash.snakeCase(
-                    p.dizmoName
-                );
+                return self.bundleId
+                    || 'com.example.' + lodash.snakeCase(p.dizmoName);
             }
         }, {
             store: true,
@@ -159,5 +165,19 @@ module.exports = yeoman.generators.Base.extend({
                 'init', '--quiet', this.destinationPath()
             ]);
         }
+    },
+
+    end: function () {
+        if (this.options.ext) this.composeWith('dizmo:ext', {
+            args: this.args, options: lodash.assign(this.options, {
+                force: true
+            })
+        });
+
+        if (this.options.lib) this.composeWith('dizmo:lib', {
+            args: this.args, options: lodash.assign(this.options, {
+                force: true
+            })
+        });
     }
 });
