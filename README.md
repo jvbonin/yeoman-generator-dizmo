@@ -82,15 +82,15 @@ Each dizmo is required to have a unique `bundle ID`, which is a name of the bund
 
 Choose as a prefix e.g. the domain of your company (in reverse notation with the `com.`, `org.` etc. preceding the rest), and then a name related to the dizmo.
 
-    ? What's your name? Name Surname
+    ? What's your name? Full Name
 
-Provide e.g. your full name, to designate yourself as the author of the project. By default, the current user name (if available) will be suggested. Anything you enter here will be remembered and automatically suggested as the default at your next invocation of `yo dizmo`.
+Provide e.g. your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be suggested. Anything you enter here will be remembered and automatically suggested as the default at your next invocation of `yo dizmo`.
 
 The entry will be stored once the project skeleton is setup in `package.json` under `person.name`. For multiple contributors, see the [npm:package.json](https://docs.npmjs.com/files/package.json) documentation, section [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
 
-    ? And your email? name.surname@mail.net
+    ? And your email? my@email.net
 
-Provide your email, so people can reach you for feedback, bug reports etc. By default the generator suggests the `MAIL` environment variable, which you may want to correct with your proper email. Again, the next time you invoke `yo dizmo`, your entry will be the new default suggestion.
+Provide your email, so people can reach you for feedback, bug reports etc. By default the generator suggests the GIT user email &ndash; if available &ndash; or the `MAIL` environment variable (which you may want to correct with your proper email). Again, the next time you invoke `yo dizmo`, your entry will be the new default suggestion.
 
 The entry will be stored in `package.json` under `person.email`
 For multiple contributors, see again [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
@@ -248,7 +248,7 @@ Both sub-generators require the basic skeleton to be setup with `yo dizmo` (or e
 
 It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original build system has been left in place. Using this feature you can later-on convert your basic dizmo projects to more advanced versions.
 
-### dizmo:ext - extended skeleton
+### dizmo:ext &ndash; extended skeleton
 
 Invoke the `dizmo:ext` sub-generator (after having invoked `yo dizmo`):
 
@@ -282,7 +282,7 @@ The extended features are:
 
 * **Source maps:** To allow easy debugging the minified scripts and styles will be accompanied by corresponding source maps.
 
-### dizmo:lib - browserify integration
+### dizmo:lib &ndash; browserify integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
