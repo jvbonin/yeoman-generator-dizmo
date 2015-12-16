@@ -14,13 +14,17 @@ On most operating systems the `-g` option (shortcut for `--global`) requires sup
 
 ## Quick start
 
-Create a project directory and invoke the dizmo generator:
+Invoke the dizmo generator with a name of your choice, e.g. `my-dizmo`, and answer a few questions:
 
-    mkdir my-project-1
-    cd my-project-1
-    yo dizmo
+    yo dizmo my-dizmo
 
-Drag and drop the `build/MyProject-0.0.0.dzm` dizmo onto dizmoSpace: You should see the front side of the dizmo with `Hello World!` written on it.
+After the build, drag and drop the `./my-dizmo/build/MyDizmo-0.0.0.dzm` file onto dizmoSpace: You should see the front side of the dizmo with `Hello World!` written on it.
+
+The name parameter is optional and can be changed at the prompt. Further, calling `yo dizmo` is equivalent to invoking the default generator with `yo dizmo:app`.
+
+To list all possible arguments and options of the generator, enter:
+
+     yo dizmo --help
 
 ## Caching
 
@@ -40,31 +44,11 @@ However, this also means that your very first dizmo skeleton generation (and cor
 
 By running `npm cache ls` you can determine, which [npm] packages have already been cached.
 
-## Dizmo
-
-Create a new project folder, e.g.:
-
-    mkdir my-project-1
-
-Then change to the newly created folder:
-
-```bash
-cd my-project-1
-```
-
-And invoke the `dizmo` generator:
-
-```bash
-yo dizmo
-```
-
-Calling `yo dizmo` is equivalent to invoking the default generator with `yo dizmo:app`.
-
 ### Questions
 
 At the start, you will be asked a few questions, after which the terminal should look similar to:
 
-    ~/my-project-1 $ yo dizmo
+    ~/my-dizmos $ yo dizmo
 
          _-----_
         |       |    .--------------------------.
@@ -76,25 +60,25 @@ At the start, you will be asked a few questions, after which the terminal should
        __'.___.'__
      ´   `  |° ´ Y `
 
-    ? Name your dizmo: MyProject1
-    ? Describe it: My Project 1
-    ? And its bundle ID? com.example.my_project_1
+    ? Name your dizmo: MyDizmo
+    ? Describe it: My Dizmo
+    ? And its bundle ID? com.example.my_dizmo
     ? What's your name? Name Surname
     ? And your email? name.surname@mail.net
 
 The `dizmo` generator asks you a few questions; let's have a look at them:
 
-    ? Name your dizmo: MyProject1
+    ? Name your dizmo: MyDizmo
 
-By default the camel-case name of the current directory (except an extension like `.git` or `.svn`) will be provided as a suggestion. Accept, or change as desired.
+If no `dizmoName` argument is provided then by default `MyDizmo` will be suggested; accept, or change as desired. This name will be used to create a project folder in the current directory; e.g. for the `MyDizmo` name the folder would be `my-dizmo/`.
 
-    ? Describe it: My Project 1
+    ? Describe it: My Dizmo
 
 You should provide a short succinct description of your project. By default the name of the current directory will be taken as a base for a suggestion.
 
-    ? And its bundle ID? com.example.my_project_1
+    ? And its bundle ID? com.example.my_dizmo
 
-Each dizmo is required to have a unique `bundle ID`, which is a name of the bundle each dizmo instance will belong to: For example each sticky note dizmo would have the *same* `com.dizmo.stickynote` bundle ID (but with *different* dizmo IDs).
+Each dizmo is required to have a unique `bundle ID`, which is a name of the bundle each dizmo instance will belong to: E.g. each sticky note dizmo would have the *same* `com.dizmo.stickynote` bundle ID (but with *different* dizmo IDs).
 
 Choose as a prefix e.g. the domain of your company (in reverse notation with the `com.`, `org.` etc. preceding the rest), and then a name related to the dizmo.
 
@@ -115,7 +99,7 @@ For multiple contributors, see again [people-fields-author-contributors](https:/
 
 After you have answered the last question, the generator will create the project's skeleton. If you have the `tree` command on your system, then you can visualize the directory structure:
 
-    my-project-1 $ tree
+    my-dizmo $ tree
     .
     ├── LICENSE
     ├── README.md
@@ -229,9 +213,9 @@ npm run make -- clean
 
 Once your dizmo is build, a `build/` folder with the following content will be available:
 
-    my-project-1 $ tree build/
+    my-dizmo $ tree build/
     build/
-    ├── MyProject1
+    ├── MyDizmo
     │   ├── Info.plist
     │   ├── assets
     │   │   ├── Icon-dark.svg
@@ -242,19 +226,19 @@ Once your dizmo is build, a `build/` folder with the following content will be a
     │   ├── index.js
     │   └── style
     │       └── style.css
-    └── MyProject1-0.0.0.dzm
+    └── MyDizmo-0.0.0.dzm
 
-* `MyProject1-0.0.0.dzm`: A ZIP archive of the `MyProject1` folder with a version suffix, which has been defined in `project.json`. Please see [Semantic versioning and npm](https://docs.npmjs.com/getting-started/semantic-versioning) for further information. You can drag and drop this file onto dizmoSpace to instantiate a dizmo.
+* `MyDizmo-0.0.0.dzm`: A ZIP archive of the `MyDizmo` folder with a version suffix, which has been defined in `project.json`. Please see [Semantic versioning and npm](https://docs.npmjs.com/getting-started/semantic-versioning) for further information. You can drag and drop this file onto dizmoSpace to instantiate a dizmo.
 
-  In dizmoSpace only the dizmo bundle with the highest version number is cached! Therefore, it is important to increase the version when releasing a dizmo to your audience. However, simply changing the version suffix in the `*.dzm` file name will *not* work: the version is required to be set in `MyProject1/Info.plist` (which happens automatically based on the version information in `package.json`).
+  In dizmoSpace only the dizmo bundle with the highest version number is cached! Therefore, it is important to increase the version when releasing a dizmo to your audience. However, simply changing the version suffix in the `*.dzm` file name will *not* work: the version is required to be set in `MyDizmo/build/Info.plist` (which happens automatically based on the version information in `package.json`).
 
-* `MyProject1/Info.plist`: a list of properties (in XML notation) defining a dizmo; this file is derived from the original `.info.plist` template file, which has been enriched with information from `package.json`.
+* `MyDizmo/Info.plist`: a list of properties (in XML notation) defining a dizmo; this file is derived from the original `.info.plist` template file, which has been enriched with information from `package.json`.
 
-* `MyProject1/assets`: a copy of the original `assets` folder;
-* `MyProject1/help.zip`: a ZIP archive of the original `help` folder;
-* `MyProject1/index.html`: the main HTML script;
-* `MyProject1/index.js`: the main JavaScript;
-* `MyProject1/style/style.css`: CSS style sheets.
+* `MyDizmo/assets`: a copy of the original `assets` folder;
+* `MyDizmo/help.zip`: a ZIP archive of the original `help` folder;
+* `MyDizmo/index.html`: the main HTML script;
+* `MyDizmo/index.js`: the main JavaScript;
+* `MyDizmo/style/style.css`: CSS style sheets.
 
 ## Advanced sub-generators
 
@@ -273,7 +257,7 @@ Invoke the `dizmo:ext` sub-generator (after having invoked `yo dizmo`):
 
 It will create or modify the regular skeleton:
 
-    my-project-2.git $ tree
+    my-dizmo $ tree
     .
     ├── gulp
     │   └── tasks
@@ -310,7 +294,7 @@ You could omit `yo dizmo:ext` and directly run `yo dizmo:lib`, but we assume tha
 
 Let's have a look at the changes:
 
-    my-project-3.git $ tree
+    my-dizmo $ tree
     .
     ├── gulp
     │   └── tasks

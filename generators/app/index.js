@@ -2,6 +2,8 @@
 
 var chalk = require('chalk');
 var lodash = require('lodash');
+var path = require('path');
+var process = require('process');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
@@ -11,58 +13,29 @@ module.exports = yeoman.generators.Base.extend({
 
         this.option('install-to', {
             defaults: process.env.DIZMO_INSTALL_TO || '',
-            desc: 'Dizmo installation path',
-            type: String, alias: 'i'
+            desc: 'Default dizmo installation path',
+            type: String
         });
 
         this.argument('dizmoName', {
-            type: String, required: false
+            type: String, required: false, defaults: 'MyDizmo'
         });
-        if (this.dizmoName) {
-            this.dizmoName = lodash.capitalize(
-                lodash.camelCase(this.dizmoName));
-        } else {
-            this.dizmoName = lodash.capitalize(
-                lodash.camelCase(process.cwd()
-                    .split('/').pop().split('.').slice(0, -1).join()));
-        }
-        if (!this.dizmoName) {
-            this.dizmoName = 'MyDizmo';
-        }
-
         this.argument('dizmoDescription', {
             type: String, required: false
         });
-        if (!this.dizmoDescription) {
-            this.dizmoDescription = lodash.startCase(this.dizmoName);
-        }
-
         this.argument('bundleId', {
             type: String, required: false
         });
-        if (!this.bundleId) {
-            this.bundleId = lodash.snakeCase(this.dizmoName);
-            this.bundleId = 'com.example.' + this.bundleId;
-        } else {
-            this.bundleId = lodash.snakeCase(this.bundleId);
-        }
-
         this.argument('personName', {
             type: String, required: false
         });
-        if (!this.personName) {
-            this.personName = process.env.USER || '';
-        }
-
         this.argument('personEmail', {
             type: String, required: false
         });
-        if (!this.personEmail) {
-            this.personEmail = process.env.MAIL || '';
-        }
     },
     prompting: function () {
-        var done = this.async();
+        var self = this,
+            done = this.async();
 
         this.log(yosay(
             'Welcome to the awsome ' + chalk.green.bold('dizmo') + ' generator!'
@@ -72,29 +45,45 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
-            default: this.dizmoName
+            default: function () {
+                return lodash.capitalize(lodash.camelCase(
+                    self.dizmoName
+                ));
+            }
         }, {
             type: 'input',
             name: 'dizmoDescription',
             message: 'Describe it:',
-            default: this.dizmoDescription
+            default: function (p) {
+                return self.dizmoDescription || lodash.startCase(
+                     p.dizmoName
+                );
+            }
         }, {
             type: 'input',
             name: 'bundleId',
             message: 'And its bundle ID?',
-            default: this.bundleId
+            default: function (p) {
+                return self.bundleId || 'com.example.' + lodash.snakeCase(
+                    p.dizmoName
+                );
+            }
         }, {
+            store: true,
             type: 'input',
             name: 'personName',
             message: 'What\'s your name?',
-            default: this.personName,
-            store: true
+            default: function () {
+                return self.personName || process.env.USER || '';
+            }
         }, {
+            store: true,
             type: 'input',
             name: 'personEmail',
             message: 'And your email?',
-            default: this.personEmail,
-            store: true
+            default: function () {
+                return self.personEmail || process.env.MAIL || '';
+            }
         }];
 
         this.prompt(prompts, function (properties) {
@@ -104,6 +93,10 @@ module.exports = yeoman.generators.Base.extend({
             });
             done();
         }.bind(this));
+    },
+
+    configuring: function () {
+        this.destinationRoot(lodash.kebabCase(this.properties.dizmoName));
     },
 
     writing: function () {
