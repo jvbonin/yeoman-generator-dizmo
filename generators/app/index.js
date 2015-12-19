@@ -2,6 +2,7 @@
 
 var chalk = require('chalk');
 var lodash = require('lodash');
+var os = require('os');
 var path = require('path');
 var process = require('process');
 var shell = require('shelljs');
@@ -79,8 +80,10 @@ module.exports = yeoman.generators.Base.extend({
             name: 'bundleId',
             message: 'And its bundle ID?',
             default: function (p) {
-                return self.bundleId
-                    || 'com.example.' + lodash.snakeCase(p.dizmoName);
+                var domain = self.config.get('domain') || self._domain(),
+                    bundle_id = domain + '.' + lodash.snakeCase(p.dizmoName);
+
+                return self.bundleId || bundle_id;
             }
         }, {
             store: true,
@@ -106,6 +109,13 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     configuring: function () {
+        var bundle_id = path.parse(this.properties.bundleId);
+        if (bundle_id && bundle_id.name) {
+            this.config.set('domain', bundle_id.name);
+        } else {
+            this.config.set('domain', this._domain());
+        }
+
         if (this.options.git) {
             this.destinationRoot(
                 lodash.kebabCase(this.properties.dizmoName) + '.git');
@@ -179,5 +189,22 @@ module.exports = yeoman.generators.Base.extend({
                 force: true
             })
         });
+    },
+
+    _domain: function () {
+        if (process.env.USER) {
+            return 'me.' + process.env.USER;
+        } else if (process.env.USERNAME) {
+            return 'me.' + process.env.USERNAME;
+        } else try {
+            var base = path.parse(os.homedir()).base;
+            if (base) {
+                return 'me.' + base;
+            } else {
+                return 'my.domain';
+            }
+        } catch (_) {
+            return 'my.domain';
+        }
     }
 });
