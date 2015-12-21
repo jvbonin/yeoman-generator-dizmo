@@ -12,13 +12,27 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run install`: Builds and installs the dizmo to the `dizmo/install-to` path (see the `package.json` file). If `install-to` is empty then the dizmo is only built, but not installed.
 
+If any of these steps should fail due to missing dependencies run `npm install` to have them fetched and installed locally.
+
+## Watching
+
+You may want to automatically build and install your dizmo whenever a change is applied. This is possible by running the `watch` run-script in a separate terminal:
+
+    npm run watch
+
+Now, any change in the current directory (except in `build/` and `node_modules/`) will trigger an `install`, which is equivalent to manually running:
+
+    npm run install
+
+The `npm run watch` run-script is *only* available, when the `yo dizmo:ext` (or `yo dizmo --ext`) sub-generator has been run the create an extended skeleton!
+
 ## Testing
 
 By default no test cases nor a test framework are pre-defined:
 
 * `npm run test`: Runs tests (if any) &ndash; but actually the script simply returns an `exit 0` indicating success. If desired, integrate your test framework of choice, write your test cases and override the `test` script in `package.json` accordingly.
 
-  The only requirement is that the main test script should return `0` in case of successful test runs.
+  The only requirement is that the main test script should return `0` in case of a successful test run.
 
 ## Versioning
 
