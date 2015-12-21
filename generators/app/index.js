@@ -123,6 +123,8 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationRoot(
                 lodash.kebabCase(this.properties.dizmoName));
         }
+
+        this.config.save();
     },
 
     writing: function () {
