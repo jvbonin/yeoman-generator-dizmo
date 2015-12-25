@@ -57,7 +57,7 @@ module.exports = yeoman.generators.Base.extend({
             done = this.async();
 
         this.log(yosay(
-            'Welcome to the awsome ' + chalk.green.bold('dizmo') + ' generator!'
+            'Welcome to the awesome ' + chalk.green.bold('dizmo') + ' generator!'
         ));
 
         var prompts = [{
