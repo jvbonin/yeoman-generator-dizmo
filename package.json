@@ -22,7 +22,7 @@
   "files": [
     "generators"
   ],
-  "homepage": "http://dizmo.com/",
+  "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
   "keywords": [
     "yeoman-generator",
     "dizmo"
