@@ -34,6 +34,24 @@ By default no test cases nor a test framework are pre-defined:
 
   The only requirement is that the main test script should return `0` in case of a successful test run.
 
+## Configuration
+
+The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). E.g. to set the credentials and the upload URL for dizmoStore, use the following content:
+
+    {
+        "dizmo": {
+            "credentials": {
+                "password": "my-password",
+                "username": "my-username"
+            },
+            "urls": {
+                "upload": "http://store-api.dizmo.com"
+            }
+        }
+    }
+
+The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`, where configuration files in the lower levels have precedence.
+
 ## Versioning
 
 Please use semantic versioning by applying `npm version patch` for small patches, `npm version minor` for minor and `npm version major` for major changes; see [NPM's semantic versioning](https://docs.npmjs.com/getting-started/semantic-versioning) for further information.

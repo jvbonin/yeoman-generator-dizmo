@@ -187,6 +187,24 @@ If no `install-to` path is provided, then the dizmo is build and will be availab
 
 * `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to came-case, before being translated. See the *build* section for further information on `Info.plist`.
 
+#### Defaults
+
+The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). E.g. to set the credentials and the upload URL for dizmoStore, use the following content:
+
+    {
+        "dizmo": {
+            "credentials": {
+                "password": "my-password",
+                "username": "my-username"
+            },
+            "urls": {
+                "upload": "http://store-api.dizmo.com"
+            }
+        }
+    }
+
+The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`, where configuration files in the lower levels have precedence.
+
 #### `npm install` vs `npm run-script install`
 
 Please note that `npm install` and `npm run-script install` are *two* different actions! While the former installs all dependencies provided in `package.json` *and* runs the latter, the latter simple builds the dizmo and copies the `*.dzm` file to the `install-to` destination.
