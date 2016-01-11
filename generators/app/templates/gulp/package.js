@@ -10,9 +10,6 @@ function get_config (path_to, cfg_json) {
         cfg_json = lodash.assign(
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
     } catch (ex) {
-        console.log(ex);
-    } finally {
-        console.log(cfg_json);
     }
 
     var parsed = path.parse(path_to);
