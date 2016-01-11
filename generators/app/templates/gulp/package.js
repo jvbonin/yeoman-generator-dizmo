@@ -1,11 +1,33 @@
 var assert = require('assert'),
     fs = require('fs'),
-    lodash = require('lodash');
+    lodash = require('lodash'),
+    path = require('path');
 
-var pkg = JSON.parse(fs.readFileSync('package.json'));
+function get_config (path_to, cfg_json) {
+    var cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
+
+    try {
+        cfg_json = lodash.assign(
+            JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
+    } catch (ex) {
+        console.log(ex);
+    } finally {
+        console.log(cfg_json);
+    }
+
+    var parsed = path.parse(path_to);
+    if (parsed.dir && parsed.base) {
+        return lodash.assign(cfg_json, get_config(parsed.dir, cfg_json));
+    } else {
+        return cfg_json;
+    }
+}
+
+var pkg = get_config(
+    __dirname, JSON.parse(fs.readFileSync('package.json')));
 
 assert.ok(pkg,
-    'packagerequired');
+    'package JSON required');
 assert.ok(pkg && pkg.description,
     'package.description required');
 assert.ok(pkg && pkg.keywords.length > 0,
