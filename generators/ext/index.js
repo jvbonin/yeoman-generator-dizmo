@@ -38,6 +38,7 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('package.json'));
         lodash.assign(pkg.devDependencies, {
             'gulp-batch': '^1.0.5',
+            'gulp-coffee': '^2.3.1',
             'gulp-eslint': '^1.1.1',
             'gulp-htmlmin': '^1.2.0',
             'gulp-sass': '^2.1.0',
