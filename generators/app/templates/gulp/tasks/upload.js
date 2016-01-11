@@ -9,38 +9,46 @@ var assert = require('assert'),
     url = require('url');
 
 gulp.task('upload', ['build:zip'], function () {
-    assert(process.env.DIZMO_STORE, 'URL required');
-    var options = url.parse(process.env.DIZMO_STORE),
-        path = 'build/{0}-{1}.dzm'
-            .replace('{0}', pkg.name)
-            .replace('{1}', pkg.version);
+    var upload_url = process.env.DIZMO_URLS_UPLOAD
+        || pkg.dizmo.urls && pkg.dizmo.urls.upload;
+    var upload_usr = process.env.DIZMO_CREDENTIALS_USERNAME
+        || pkg.dizmo.credentials && pkg.dizmo.credentials.username;
+    var upload_pwd = process.env.DIZMO_CREDENTIALS_PASSWORD
+        || pkg.dizmo.credentials && pkg.dizmo.credentials.password;
 
-    var auth = '';
-    if (process.env.DIZMO_STORE_USER) {
-        if (process.env.DIZMO_STORE_PASS) {
-            auth += process.env.DIZMO_STORE_USER;
-            auth += ':';
-            auth += process.env.DIZMO_STORE_PASS;
+    if (upload_url) {
+        var options = url.parse(upload_url),
+            path = 'build/{0}-{1}.dzm'
+                .replace('{0}', pkg.name)
+                .replace('{1}', pkg.version);
+
+        var auth = '';
+        if (upload_usr) {
+            if (upload_pwd) {
+                auth += upload_usr + ':' + upload_pwd;
+            } else {
+                auth += upload_usr;
+            }
         } else {
-            auth += process.env.DIZMO_STORE_USER;
+            if (upload_pwd) {
+                auth += upload_pwd;
+            }
         }
-    } else {
-        if (process.env.DIZMO_STORE_PASS) {
-            auth += process.env.DIZMO_STORE_PASS;
+        if (auth && !options.auth) {
+            lodash.extend(options, {auth: auth});
         }
+
+        fs.readFile(path, function (err, data) {
+            if (!err) {
+                var req = http.request(lodash.extend(options, {
+                    method: 'POST', headers: {'Content-Length': data.length}
+                }));
+
+                req.write(data);
+                req.end();
+            }
+
+            else throw err;
+        });
     }
-    if (auth && !options.auth) {
-        lodash.extend(options, {auth: auth});
-    }
-
-    fs.readFile(path, function (err, data) {
-        if (err) throw err;
-
-        var req = http.request(lodash.extend(options, {
-            method: 'POST', headers: {'Content-Length': data.length}
-        }));
-
-        req.write(data);
-        req.end();
-    });
 });

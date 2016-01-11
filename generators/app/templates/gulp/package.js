@@ -7,14 +7,14 @@ function get_config (path_to, cfg_json) {
     var cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
 
     try {
-        cfg_json = lodash.assign(
+        cfg_json = lodash.merge(
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
     } catch (ex) {
     }
 
     var parsed = path.parse(path_to);
     if (parsed.dir && parsed.base) {
-        return lodash.assign(cfg_json, get_config(parsed.dir, cfg_json));
+        return lodash.merge(cfg_json, get_config(parsed.dir, cfg_json));
     } else {
         return cfg_json;
     }

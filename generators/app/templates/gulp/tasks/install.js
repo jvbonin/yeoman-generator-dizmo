@@ -3,8 +3,8 @@ var pkg = require('../package.js'),
     os = require('os'),
     path = require('path');
 
-var install_to = pkg.dizmo['install-to']
-    || process.env.DIZMO_INSTALL_TO
+var install_to = process.env.DIZMO_INSTALL_TO
+    || pkg.dizmo['install-to']
     || '';
 
 if (install_to) {
