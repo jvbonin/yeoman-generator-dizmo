@@ -5,8 +5,9 @@ var gulp = require('gulp'),
 
 gulp.task('build:all', [
     'clean',
-    'assets.dir',
     'help.zip',
+    'assets.dir',
+    'lib.dir',
     'style.css',
     'index.js',
     'index.html',
