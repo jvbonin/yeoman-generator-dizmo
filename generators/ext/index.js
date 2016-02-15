@@ -32,8 +32,8 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.delete(
             this.destinationPath('src/style/style.css'));
         this.fs.copy(
-            this.templatePath('.eslintrc.js'),
-            this.destinationPath('.eslintrc.js'));
+            this.templatePath('.eslintrc.json'),
+            this.destinationPath('.eslintrc.json'));
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
         lodash.assign(pkg.devDependencies, {
