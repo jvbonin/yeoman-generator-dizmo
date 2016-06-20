@@ -6,10 +6,11 @@ var pkg = require('../package.js'),
     source = require('vinyl-source-stream');
 
 var gulp = require('gulp'),
+    gulp_copy = require('gulp-copy'),
     gulp_uglify = require('gulp-uglify'),
     gulp_streamify = require('gulp-streamify');
 
-gulp.task('library.js:browserify', function () {
+gulp.task('process-libs:browserify', function () {
     var tpl = 'global.{0} = require(\'{1}\');\n',
         buf = '';
 
@@ -38,4 +39,10 @@ gulp.task('library.js:browserify', function () {
         .pipe(gulp_streamify(gulp_uglify()))
         .pipe(gulp.dest(file_path));
 });
-gulp.task('library.js', ['library.js:browserify']);
+
+gulp.task('process-libs', ['process-libs:browserify'], function () {
+    return gulp.src('src/lib/**/*')
+        .pipe(gulp_copy('build/{0}/'.replace('{0}', pkg.name), {
+            prefix: 1
+        }));
+});

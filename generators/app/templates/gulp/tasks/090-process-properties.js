@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     gulp_plist = require('gulp-plist'),
     gulp_rename = require('gulp-rename');
 
-gulp.task('info.plist', function () {
+gulp.task('process-properties', function () {
     var settings = lodash.mapKeys(pkg.dizmo.settings, function (value, key) {
         return lodash.capitalize(lodash.camelCase(key));
     });

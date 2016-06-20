@@ -3,7 +3,7 @@ var pkg = require('../package.js'),
 var gulp = require('gulp'),
     gulp_concat = require('gulp-concat');
 
-gulp.task('index.js', function () {
+gulp.task('process-scripts', function () {
 
     var src_list = [];
     src_list.push(path.join('src', 'index.js'));

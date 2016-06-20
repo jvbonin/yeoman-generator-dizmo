@@ -5,18 +5,18 @@ var gulp = require('gulp'),
 
 gulp.task('build:all', [
     'clean',
-    'help.zip',
-    'assets.dir',
-    'lib.dir',
-    'style.css',
-    'index.js',
-    'index.html',
-    'info.plist'
+    'process-help',
+    'process-assets',
+    'process-libs',
+    'process-styles',
+    'process-scripts',
+    'process-markup',
+    'process-properties'
 ]);
-gulp.task('build:zip', ['build:all'], function () {
+gulp.task('build:dzm', ['build:all'], function () {
     return gulp.src('build/**/*')
         .pipe(gulp_zip('{0}.dzm'.replace('{0}', pkg.name)))
         .pipe(gulp_ver())
         .pipe(gulp.dest('build'));
 });
-gulp.task('build', ['build:zip']);
+gulp.task('build', ['build:dzm']);

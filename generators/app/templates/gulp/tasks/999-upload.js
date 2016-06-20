@@ -9,7 +9,7 @@ var assert = require('assert'),
     process = require('process'),
     url = require('url');
 
-gulp.task('upload', ['build:zip'], function () {
+gulp.task('upload', ['build:dzm'], function () {
     var upload_bid = process.env.DIZMO_SETTINGS_BUNDLE_ID
         || pkg.dizmo.settings && pkg.dizmo.settings['bundle-identifier'];
     var upload_url = process.env.DIZMO_URLS_UPLOAD

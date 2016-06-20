@@ -8,7 +8,7 @@ var install_to = process.env.DIZMO_INSTALL_TO
     || '';
 
 if (install_to) {
-    gulp.task('install', ['build:zip'], function () {
+    gulp.task('install', ['build:dzm'], function () {
         if (path.isAbsolute(install_to) === false) {
             install_to = path.join(os.homedir(), install_to);
         }
@@ -18,5 +18,5 @@ if (install_to) {
                 pkg.dizmo.settings['bundle-identifier'])));
     });
 } else {
-    gulp.task('install', ['build:zip']);
+    gulp.task('install', ['build:dzm']);
 }

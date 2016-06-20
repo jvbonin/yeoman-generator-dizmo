@@ -28,9 +28,14 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'Extended sub-generator',
             type: Boolean
         });
-        this.option('lib', {
+        this.option('ext-coffee', {
             defaults: false,
-            desc: 'Browserified sub-generator',
+            desc: 'Extended sub-generator with coffee script',
+            type: Boolean
+        });
+        this.option('browserified', {
+            defaults: false,
+            desc: 'Browserify dependencies',
             type: Boolean
         });
 
@@ -180,13 +185,19 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     end: function () {
-        if (this.options.ext) this.composeWith('dizmo:ext', {
+        if (this.options['ext']) this.composeWith('dizmo:ext', {
             args: this.args, options: lodash.assign(this.options, {
                 force: true
             })
         });
 
-        if (this.options.lib) this.composeWith('dizmo:lib', {
+        if (this.options['ext-coffee']) this.composeWith('dizmo:ext-coffee', {
+            args: this.args, options: lodash.assign(this.options, {
+                force: true
+            })
+        });
+
+        if (this.options['browserified']) this.composeWith('dizmo:opt-browserify', {
             args: this.args, options: lodash.assign(this.options, {
                 force: true
             })
