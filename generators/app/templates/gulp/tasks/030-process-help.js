@@ -14,7 +14,7 @@ gulp.task('process-help:copy', function () {
 });
 gulp.task('process-help:zip', ['process-help:copy'], function () {
     return gulp.src('build/{0}/help/**/*'.replace('{0}', pkg.name))
-        .pipe(gulp_zip('process-help'))
+        .pipe(gulp_zip('help.zip'))
         .pipe(gulp.dest(path.join('build', pkg.name)));
 });
 gulp.task('process-help', ['process-help:zip'], function () {

@@ -7,11 +7,10 @@ var gulp = require('gulp'),
 gulp.task('process-scripts', function () {
 
     var src_list = [];
-    src_list.push(path.join('build', pkg.name, 'coffee.js'));
-    src_list.push(path.join('src', 'process-scripts'));
+    src_list.push(path.join('src', 'index.js'));
 
     return gulp.src(src_list)
-        .pipe(gulp_concat('process-scripts'))
+        .pipe(gulp_concat('index.js'))
         .pipe(gulp_uglify())
         .pipe(gulp.dest(path.join('build', pkg.name)));
 });

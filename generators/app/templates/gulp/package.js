@@ -5,7 +5,6 @@ var assert = require('assert'),
 
 function get_config (path_to, cfg_json) {
     var cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
-
     try {
         cfg_json = lodash.merge(
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);

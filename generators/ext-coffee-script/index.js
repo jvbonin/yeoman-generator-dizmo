@@ -27,16 +27,18 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('src/'),
             this.destinationPath('src/'));
         this.fs.delete(
+            this.destinationPath('src/index.js'));
+        this.fs.delete(
             this.destinationPath('src/style/style.css'));
         this.fs.copy(
-            this.templatePath('.eslintrc.json'),
-            this.destinationPath('.eslintrc.json'));
+            this.templatePath('coffeelint.json'),
+            this.destinationPath('coffeelint.json'));
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
         lodash.assign(pkg.devDependencies, {
             'gulp-batch': '^1.0.5',
             'gulp-coffee': '^2.3.1',
-            'gulp-eslint': '^1.1.1',
+            "gulp-coffeelint": "^0.6.0",
             'gulp-htmlmin': '^1.2.0',
             'gulp-sass': '^2.1.0',
             'gulp-sourcemaps': '^1.6.0',

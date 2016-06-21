@@ -28,12 +28,12 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'Extended sub-generator',
             type: Boolean
         });
-        this.option('ext-coffee', {
+        this.option('ext-coffee-script', {
             defaults: false,
-            desc: 'Extended sub-generator with coffee script',
+            desc: 'Extended sub-generator with CoffeeScript',
             type: Boolean
         });
-        this.option('browserified', {
+        this.option('browserify', {
             defaults: false,
             desc: 'Browserify dependencies',
             type: Boolean
@@ -121,7 +121,7 @@ module.exports = yeoman.generators.Base.extend({
             this.config.set('domain', this._domain());
         }
 
-        if (this.options.git) {
+        if (this.options['git']) {
             this.destinationRoot(
                 lodash.kebabCase(this.properties.dizmoName) + '.git');
         } else {
@@ -185,23 +185,29 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     end: function () {
-        if (this.options['ext']) this.composeWith('dizmo:ext', {
-            args: this.args, options: lodash.assign(this.options, {
-                force: true
-            })
-        });
+        if (this.options['ext']) {
+            this.composeWith('dizmo:ext', {
+                args: this.args, options: lodash.assign(this.options, {
+                    force: true
+                })
+            });
+        }
 
-        if (this.options['ext-coffee']) this.composeWith('dizmo:ext-coffee', {
-            args: this.args, options: lodash.assign(this.options, {
-                force: true
-            })
-        });
+        if (this.options['ext-coffee-script']) {
+            this.composeWith('dizmo:ext-coffee-script', {
+                args: this.args, options: lodash.assign(this.options, {
+                    force: true
+                })
+            });
+        }
 
-        if (this.options['browserified']) this.composeWith('dizmo:opt-browserify', {
-            args: this.args, options: lodash.assign(this.options, {
-                force: true
-            })
-        });
+        if (this.options['browserify']) {
+            this.composeWith('dizmo:opt-browserify', {
+                args: this.args, options: lodash.assign(this.options, {
+                    force: true
+                })
+            });
+        }
     },
 
     _domain: function () {
