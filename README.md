@@ -316,7 +316,7 @@ The extended features are:
 
   The `.eslintrc.json` file can be used to configure the linting process for JavaScript files.
 
-* **SCSS:** Instead of `style.css` you can now work with `style.scss` style sheets.
+* **SASS:** Instead of `style.css` you can now work with `style.scss` style sheets.
 
 * **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
 
@@ -362,6 +362,10 @@ The extended features are:
 * **Linting:** Run `npm run lint` to manually start linting. But since now `npm run make` and `npm run install` are dependent on it, there is no need to manually start it.
 
   The `coffeelint.json` file can be used to configure the linting process for CoffeeScript files.
+
+* **SASS:** Instead of `style.css` you can now work with `style.scss` style sheets.
+
+* **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
 
 * **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
 
