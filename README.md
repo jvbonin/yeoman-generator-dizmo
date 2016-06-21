@@ -210,7 +210,7 @@ Please note that `npm install` and `npm run-script install` are *two* different 
 
 This means that if you are sure that all your dependencies have been installed and are met, then you can quickly invoke `npm run install` (which is much faster thant `npm install` due to the lack of dependency checks).
 
-## Npm scripts
+## NPM scripts
 
 Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts); in each `package.json` the following scripts should be available:
 
@@ -260,6 +260,12 @@ Once your dizmo is build, a `build/` folder with the following content will be a
 * `MyDizmo/index.js`: the main JavaScript;
 * `MyDizmo/style/style.css`: CSS style sheets.
 
+## Dependency management
+
+There is no automatic dependency management implemented, because of which you should extend the `src_list` array in the `070-process-scripts.js` task if required so.
+
+However, for third party dependencies please consider using the `opt:browserify` sub-generator.
+
 ## Advanced sub-generators
 
 Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced sub-generators `dizmo:ext` and `dizmo:ext-coffee-script` and `dizmo:opt-browserify`.
@@ -272,15 +278,14 @@ It's in theory possible to run the advanced sub-generators even after having edi
 
 Invoke the `dizmo:ext` sub-generator (after having invoked `yo dizmo`):
 
-    yo dizmo my-dizmo
-    cd my-dizmo/
-    yo dizmo:ext
+    yo dizmo my-dizmo --skip-install
+    cd my-dizmo && yo dizmo:ext
 
-Or simpler by directly enabling `dizmo:ext` sub-generator:
+Or simpler by directly enabling the `dizmo:ext` sub-generator:
 
     yo dizmo my-dizmo --ext
 
-This will run the basic generator and then apply on top of it the extended sub-generator. However, when you invoke above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
+This will run the basic generator and then apply on top of it the extended sub-generator. However, when you invoke the above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
 
     yo dizmo my-dizmo --ext --skip-install
     cd my-dizmo && npm install
@@ -294,6 +299,7 @@ It will create or modify the regular skeleton:
     │   ├── package.js
     │   └── tasks
     │       ├── 000-lint.js
+    │       ├── 010-build.js
     │       ├── 060-process-styles.js
     │       ├── 070-process-scripts.js
     │       ├── 080-process-markup.js
@@ -308,13 +314,58 @@ The extended features are:
 
 * **Linting:** Run `npm run lint` to manually start linting. But since now `npm run make` and `npm run install` are dependent on it, there is no need to manually start it.
 
+  The `.eslintrc.json` file can be used to configure the linting process for JavaScript files.
+
 * **SCSS:** Instead of `style.css` you can now work with `style.scss` style sheets.
 
 * **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
 
-* **Source maps:** To allow easy debugging the minified scripts and styles will be accompanied by corresponding source maps.
+### dizmo:ext-coffee-script &ndash; CoffeeScript integration
 
-### dizmo:opt-browserify &ndash; browserify integration
+Invoke the `dizmo:ext-coffee-script` sub-generator (after having invoked `yo dizmo`):
+
+    yo dizmo my-dizmo --skip-install
+    cd my-dizmo && yo dizmo:ext-coffee-script
+
+Or simpler by directly enabling the `dizmo:ext-coffee-script` sub-generator:
+
+    yo dizmo my-dizmo --ext-coffee-script
+
+This will run the basic generator and then apply on top of it the extended CoffeeScript sub-generator. However, when you invoke the above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
+
+    yo dizmo my-dizmo --ext-coffee-script --skip-install
+    cd my-dizmo && npm install
+
+It will create or modify the regular skeleton:
+
+    my-dizmo $ tree
+    .
+    ├── coffeelint.json
+    ├── gulp
+    │   ├── package.js
+    │   └── tasks
+    │       ├── 000-lint.js
+    │       ├── 010-build.js
+    │       ├── 060-process-styles.js
+    │       ├── 070-process-scripts.js
+    │       ├── 080-process-markup.js
+    │       ├── 100-install.js
+    │       └── 999-watch.js
+    ├── package.json
+    └── src
+        ├── index.coffee
+        └── style
+            └── style.scss
+
+The extended features are:
+
+* **Linting:** Run `npm run lint` to manually start linting. But since now `npm run make` and `npm run install` are dependent on it, there is no need to manually start it.
+
+  The `coffeelint.json` file can be used to configure the linting process for CoffeeScript files.
+
+* **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
+
+### dizmo:opt-browserify &ndash; Browserify integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
