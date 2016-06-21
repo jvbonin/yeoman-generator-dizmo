@@ -36,7 +36,7 @@ module.exports = yeoman.generators.Base.extend({
         lodash.assign(pkg.devDependencies, {
             'gulp-batch': '^1.0.5',
             'gulp-eslint': '^2.0.0',
-            'gulp-htmlmin': '^1.3.0',
+            'gulp-htmlmin': '^2.0.0',
             'gulp-sass': '^2.3.2',
             'gulp-sourcemaps': '^1.6.0',
             'gulp-streamify': '^1.0.2',

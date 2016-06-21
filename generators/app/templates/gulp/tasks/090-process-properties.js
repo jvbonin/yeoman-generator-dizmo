@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 
 gulp.task('process-properties', function () {
     var settings = lodash.mapKeys(pkg.dizmo.settings, function (value, key) {
-        return lodash.capitalize(lodash.camelCase(key));
+        return lodash.upperFirst(lodash.camelCase(key));
     });
 
     return gulp.src('.info.plist')

@@ -70,7 +70,7 @@ module.exports = yeoman.generators.Base.extend({
             name: 'dizmoName',
             message: 'Name your dizmo:',
             default: function () {
-                return lodash.capitalize(lodash.camelCase(self.dizmoName));
+                return lodash.upperFirst(lodash.camelCase(self.dizmoName));
             }
         }, {
             type: 'input',
