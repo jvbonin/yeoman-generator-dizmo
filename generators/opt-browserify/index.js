@@ -30,9 +30,9 @@ module.exports = yeoman.generators.Base.extend({
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
         lodash.assign(pkg.devDependencies, {
-            'browserify': '^12.0.1',
+            'browserify': '^12.0.2',
             'gulp-streamify': '^1.0.2',
-            'gulp-uglify': '^1.5.1',
+            'gulp-uglify': '^1.5.3',
             'vinyl-source-stream': '^1.1.0'
         });
         pkg.devDependencies = sort(

@@ -5,19 +5,19 @@
     "url": "http://www.blackhan.com/"
   },
   "dependencies": {
-    "chalk": "^1.0.0",
+    "chalk": "^1.1.3",
     "lodash": "^3.10.1",
     "shelljs": "^0.5.3",
-    "yeoman-generator": "^0.21.1",
-    "yosay": "^1.0.2"
+    "yeoman-generator": "^0.21.2",
+    "yosay": "^1.2.0"
   },
   "description": "Dizmo generator",
   "devDependencies": {
-    "gulp": "^3.6.0",
-    "gulp-eslint": "^1.0.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-nsp": "^2.1.0",
-    "yeoman-assert": "^2.0.0"
+    "gulp-nsp": "^2.4.1",
+    "yeoman-assert": "^2.2.1"
   },
   "files": [
     "generators"
