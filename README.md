@@ -369,6 +369,59 @@ The extended features are:
 
 * **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
 
+### dizmo:ext-type-script &ndash; TypeScript integration
+
+Invoke the `dizmo:ext-type-script` sub-generator (after having invoked `yo dizmo`):
+
+    yo dizmo my-dizmo --skip-install
+    cd my-dizmo && yo dizmo:ext-type-script
+
+Or simpler by directly enabling the `dizmo:ext-type-script` sub-generator:
+
+    yo dizmo my-dizmo --ext-type-script
+
+This will run the basic generator and then apply on top of it the extended TypeScript sub-generator. However, when you invoke the above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
+
+    yo dizmo my-dizmo --ext-type-script --skip-install
+    cd my-dizmo && npm install
+
+It will create or modify the regular skeleton:
+
+    my-dizmo $ tree
+    .
+    ├── .eslint.json
+    ├── .tslint.json
+    ├── gulp
+    │   ├── package.js
+    │   └── tasks
+    │       ├── 000-lint.js
+    │       ├── 010-build.js
+    │       ├── 060-process-styles.js
+    │       ├── 070-process-scripts.js
+    │       ├── 080-process-markup.js
+    │       ├── 100-install.js
+    │       └── 999-watch.js
+    ├── package.json
+    ├── src
+    │   ├── dizmo.ts
+    │   ├── index.ts
+    │   ├── window.ts
+    │   └── style
+    │       └── style.scss
+    └── tsconfig.json
+
+The extended features are:
+
+* **Linting:** Run `npm run lint` to manually start linting. But since now `npm run make` and `npm run install` are dependent on it, there is no need to manually start it.
+
+  The `.eslint.json` configuration can be used to control the linting process for JavaScript files. And for TypeScript files, the `.tslint.json` file can be used to configure the linting process.
+
+* **SASS:** Instead of `style.css` you can now work with `style.scss` style sheets.
+
+* **Minification:** All resulting JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
+
+* **TypeScript:** Using the `index.ts` file you can start developing your application in [TypeScript](http://www.typescriptlang.org/).
+
 ### dizmo:with-library &ndash; Library integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
@@ -414,7 +467,7 @@ For example, if you want to have access to the [lodash](https://lodash.com/) lib
 which adds the corresponding dependency in `package.json`:
 
     "dependencies": {
-        "lodash": "^3.10.1"
+        "lodash": "^4.13.1"
     }
 
 Now, if you run `npm run make` and drag and drop the generated dizmo onto dizmoViewer, then you'll notice that the global `lodash` variable references the [lodash](https://lodash.com/) library.
