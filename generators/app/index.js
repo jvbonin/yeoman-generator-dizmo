@@ -33,6 +33,11 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'Extended sub-generator with CoffeeScript',
             type: Boolean
         });
+        this.option('ext-type-script', {
+            defaults: false,
+            desc: 'Extended sub-generator with TypeScript',
+            type: Boolean
+        });
         this.option('browserify', {
             defaults: false,
             desc: 'Browserify dependencies',
@@ -194,8 +199,20 @@ module.exports = yeoman.generators.Base.extend({
             });
         }
 
-        if (this.options['ext-coffee-script']) {
+        if (this.options['ext-coffee-script'] &&
+            !this.options['ext-type-script'])
+        {
             this.composeWith('dizmo:ext-coffee-script', {
+                args: this.args, options: lodash.assign(this.options, {
+                    force: true
+                })
+            });
+        }
+
+        if (this.options['ext-type-script'] &&
+            !this.options['ext-coffee-script'])
+        {
+            this.composeWith('dizmo:ext-type-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })
