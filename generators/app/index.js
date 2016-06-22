@@ -20,27 +20,27 @@ module.exports = yeoman.generators.Base.extend({
         });
         this.option('git', {
             defaults: false,
-            desc: 'GIT initialization',
+            desc: 'GIT repository initialization',
             type: Boolean
         });
         this.option('ext', {
             defaults: false,
-            desc: 'Extended sub-generator',
+            desc: 'Extended sub-generator with SASS etc.',
             type: Boolean
         });
         this.option('ext-coffee-script', {
             defaults: false,
-            desc: 'Extended sub-generator with CoffeeScript',
+            desc: 'Extended sub-generator incl. CoffeeScript',
             type: Boolean
         });
         this.option('ext-type-script', {
             defaults: false,
-            desc: 'Extended sub-generator with TypeScript',
+            desc: 'Extended sub-generator incl. TypeScript',
             type: Boolean
         });
-        this.option('browserify', {
+        this.option('with-library', {
             defaults: false,
-            desc: 'Browserify dependencies',
+            desc: 'Include deps as a bundled library',
             type: Boolean
         });
 
@@ -158,7 +158,9 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('.info.plist'), this.properties);
         this.template(
             this.templatePath('LICENSE'),
-            this.destinationPath('LICENSE'), this.properties);
+            this.destinationPath('LICENSE'), lodash.assign(this.properties, {
+                year: new Date().getFullYear()
+            }));
         this.template(
             this.templatePath('package.json'),
             this.destinationPath('package.json'), this.properties);
@@ -219,8 +221,8 @@ module.exports = yeoman.generators.Base.extend({
             });
         }
 
-        if (this.options['browserify']) {
-            this.composeWith('dizmo:opt-browserify', {
+        if (this.options['with-library']) {
+            this.composeWith('dizmo:with-library', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })

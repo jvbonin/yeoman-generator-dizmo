@@ -369,25 +369,25 @@ The extended features are:
 
 * **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
 
-### dizmo:opt-browserify &ndash; Browserify integration
+### dizmo:opt-library &ndash; Library integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
     yo dizmo my-dizmo --skip-install
     cd my-dizmo
     yo dizmo:ext --skip-install
-    yo dizmo:opt-browserify --skip-install
+    yo dizmo:with-library --skip-install
     npm install
 
-You could omit `yo dizmo:ext` and directly run the (optional) `yo dizmo:opt-browserify` sub-generator, but we assume that if you want to have a browserify integration then you may also want to work on the extended skeleton.
+You could omit `yo dizmo:ext` and directly run the (optional) `yo dizmo:with-library` sub-generator, but we assume that if you want to have a browserified integration, then you may also want to work on the extended skeleton.
 
-Or again a simpler invocation would be to directly enable the `dizmo:ext` and `dizmo:opt-browserify` sub-generators:
+Or again a simpler invocation would be to directly enable the `dizmo:ext` and `dizmo:with-library` sub-generators:
 
-    yo dizmo my-dizmo --ext --browserify
+    yo dizmo my-dizmo --ext --with-library
 
 This will run the basic generator and then apply on top of it the other sub-generators. However, when you invoke the above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
 
-    yo dizmo my-dizmo --ext --browserify --skip-install
+    yo dizmo my-dizmo --ext --with-library --skip-install
     cd my-dizmo && npm install
 
 Let's have a look at the changes:
@@ -425,7 +425,7 @@ But declaring a dependency in `package.json` offers you the benefit of semantic 
 
 ## License
 
- © 2015 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2016 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
