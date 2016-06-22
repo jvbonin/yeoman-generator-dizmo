@@ -369,7 +369,7 @@ The extended features are:
 
 * **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
 
-### dizmo:opt-library &ndash; Library integration
+### dizmo:with-library &ndash; Library integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
