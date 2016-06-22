@@ -177,8 +177,9 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     git: function () {
-        if (this.options.git && shell.which('git')) {
-            this.spawnCommand(shell.which('git'), [
+        var git = shell.which('git');
+        if (git && this.options.git) {
+            this.spawnCommand(git.toString(), [
                 'init', '--quiet', this.destinationPath()
             ]);
         }
