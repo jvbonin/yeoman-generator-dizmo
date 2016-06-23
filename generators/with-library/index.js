@@ -45,7 +45,7 @@ module.exports = yeoman.generators.Base.extend({
             pkg.devDependencies
         );
         this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 4);
+            this.destinationPath('package.json'), pkg, null, 2);
     },
 
     install: function () {
