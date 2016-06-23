@@ -4,10 +4,9 @@ var gulp = require('gulp'),
     gulp_zip = require('gulp-zip');
 
 gulp.task('build:all', [
-    'clean',
+    'clean:build#dzm',
     'process-help',
     'process-assets',
-    'process-libs',
     'process-styles',
     'process-scripts',
     'process-markup',

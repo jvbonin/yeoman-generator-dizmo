@@ -29,6 +29,12 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('src/'));
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
+        lodash.assign(pkg.scripts, {
+            'libs': 'node ./node_modules/gulp/bin/gulp.js process-libs'
+        });
+        pkg.scripts = sort(
+            pkg.scripts
+        );
         lodash.assign(pkg.devDependencies, {
             'browserify': '^12.0.2',
             'gulp-streamify': '^1.0.2',
