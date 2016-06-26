@@ -1,7 +1,8 @@
 'use strict';
 
-var lodash = require('lodash');
-var yeoman = require('yeoman-generator');
+var yeoman = require('yeoman-generator'),
+    lodash = require('lodash'),
+    rimraf = require('rimraf');
 
 function sort(dictionary) {
     var array = [],
@@ -26,8 +27,6 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copy(
             this.templatePath('src/'),
             this.destinationPath('src/'));
-        this.fs.delete(
-            this.destinationPath('src/style/style.css'));
         this.fs.copy(
             this.templatePath('.eslintrc.json'),
             this.destinationPath('.eslintrc.json'));
@@ -52,5 +51,10 @@ module.exports = yeoman.generators.Base.extend({
 
     install: function () {
         this.npmInstall('', {'cache-min': 604800});
+    },
+
+    end: function () {
+        rimraf.sync(
+            this.destinationPath('src/style/style.css'));
     }
 });

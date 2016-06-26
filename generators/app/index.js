@@ -1,13 +1,13 @@
 'use strict';
 
-var chalk = require('chalk');
-var lodash = require('lodash');
-var os = require('os');
-var path = require('path');
-var process = require('process');
-var shell = require('shelljs');
-var yeoman = require('yeoman-generator');
-var yosay = require('yosay');
+var chalk = require('chalk'),
+    lodash = require('lodash'),
+    os = require('os'),
+    path = require('path'),
+    process = require('process'),
+    shell = require('shelljs'),
+    yeoman = require('yeoman-generator'),
+    yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
