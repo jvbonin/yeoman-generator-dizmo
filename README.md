@@ -119,7 +119,8 @@ After you have answered the last question, the generator will create the project
     │       ├── 070-process-scripts.js
     │       ├── 080-process-markup.js
     │       ├── 090-process-properties.js
-    │       └── 100-install.js
+    │       ├── 100-process-libs.js
+    │       └── 110-install.js
     ├── gulpfile.js
     ├── help
     │   └── en
@@ -303,7 +304,8 @@ It will create or modify the regular skeleton:
     │       ├── 060-process-styles.js
     │       ├── 070-process-scripts.js
     │       ├── 080-process-markup.js
-    │       ├── 100-install.js
+    │       ├── 100-process-libs.js
+    │       ├── 110-install.js
     │       └── 999-watch.js
     ├── package.json
     └── src
@@ -349,7 +351,8 @@ It will create or modify the regular skeleton:
     │       ├── 060-process-styles.js
     │       ├── 070-process-scripts.js
     │       ├── 080-process-markup.js
-    │       ├── 100-install.js
+    │       ├── 100-process-libs.js
+    │       ├── 110-install.js
     │       └── 999-watch.js
     ├── package.json
     └── src
@@ -399,7 +402,8 @@ It will create or modify the regular skeleton:
     │       ├── 060-process-styles.js
     │       ├── 070-process-scripts.js
     │       ├── 080-process-markup.js
-    │       ├── 100-install.js
+    │       ├── 100-process-libs.js
+    │       ├── 110-install.js
     │       └── 999-watch.js
     ├── package.json
     ├── src
@@ -422,25 +426,25 @@ The extended features are:
 
 * **TypeScript:** Using the `index.ts` file you can start developing your application in [TypeScript](http://www.typescriptlang.org/).
 
-### dizmo:with-library &ndash; Library integration
+### dizmo:with-libs &ndash; Library integration
 
 Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
 
     yo dizmo my-dizmo --skip-install
     cd my-dizmo
     yo dizmo:ext --skip-install
-    yo dizmo:with-library --skip-install
+    yo dizmo:with-libs --skip-install
     npm install
 
-You could omit `yo dizmo:ext` and directly run the (optional) `yo dizmo:with-library` sub-generator, but we assume that if you want to have a browserified integration, then you may also want to work on the extended skeleton.
+You could omit `yo dizmo:ext` and directly run the (optional) `yo dizmo:with-libs` sub-generator, but we assume that if you want to have a browserified integration, then you may also want to work on the extended skeleton.
 
-Or again a simpler invocation would be to directly enable the `dizmo:ext` and `dizmo:with-library` sub-generators:
+Or again a simpler invocation would be to directly enable the `dizmo:ext` and `dizmo:with-libs` sub-generators:
 
-    yo dizmo my-dizmo --ext --with-library
+    yo dizmo my-dizmo --ext --with-libs
 
 This will run the basic generator and then apply on top of it the other sub-generators. However, when you invoke the above command, then the install step will be executed multiple times (once for the each generator). To avoid that run:
 
-    yo dizmo my-dizmo --ext --with-library --skip-install
+    yo dizmo my-dizmo --ext --with-libs --skip-install
     cd my-dizmo && npm install
 
 Let's have a look at the changes:
@@ -449,7 +453,7 @@ Let's have a look at the changes:
     .
     ├── gulp
     │   └── tasks
-    │       └── 050-process-lib.js
+    │       └── 100-process-libs.js
     ├── package.json
     └── src
         └── index.html
@@ -470,7 +474,9 @@ which adds the corresponding dependency in `package.json`:
         "lodash": "^4.13.1"
     }
 
-Now, if you run `npm run make` and drag and drop the generated dizmo onto dizmoViewer, then you'll notice that the global `lodash` variable references the [lodash](https://lodash.com/) library.
+Now, if you run `npm run with-libs` plus `npm run make` and drag and drop the generated dizmo onto dizmoViewer, then you'll notice that the global `lodash` variable references the [lodash](https://lodash.com/) library.
+
+You should run `npm run with-libs` only when you add or remove dependencies, since it can depending on the dependency take some time to produce the `lib/library.js` file.
 
 Of course this does not mean, that you cannot include libraries the old fashioned way, by simply downloading the (minified) distribution, putting it in your dizmo project, and referencing it directly from your HTML markup as a script: this is still possible!
 
