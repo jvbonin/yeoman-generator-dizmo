@@ -38,7 +38,7 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'Extended sub-generator incl. TypeScript',
             type: Boolean
         });
-        this.option('with-library', {
+        this.option('with-libs', {
             defaults: false,
             desc: 'Include deps as a bundled library',
             type: Boolean
@@ -221,8 +221,8 @@ module.exports = yeoman.generators.Base.extend({
             });
         }
 
-        if (this.options['with-library']) {
-            this.composeWith('dizmo:with-library', {
+        if (this.options['with-libs']) {
+            this.composeWith('dizmo:with-libs', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })

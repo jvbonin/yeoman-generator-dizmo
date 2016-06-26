@@ -21,24 +21,40 @@ function sort(dictionary) {
 
 module.exports = yeoman.generators.Base.extend({
     writing: function () {
-        this.fs.copy(
+        var pkg = this._package();
+        this.template(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
+            this.destinationPath('gulp/'), pkg);
+        this.template(
             this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.fs.copy(
+            this.destinationPath('src/'), pkg);
+        this.template(
             this.templatePath('.eslintrc.json'),
-            this.destinationPath('.eslintrc.json'));
-        this.fs.copy(
+            this.destinationPath('.eslintrc.json'), pkg);
+        this.template(
             this.templatePath('.tslint.json'),
-            this.destinationPath('.tslint.json'));
-        this.fs.copy(
+            this.destinationPath('.tslint.json'), pkg);
+        this.template(
             this.templatePath('tsconfig.json'),
-            this.destinationPath('tsconfig.json'));
+            this.destinationPath('tsconfig.json'), pkg);
+    },
+
+    install: function () {
+        this.npmInstall('', {'cache-min': 604800});
+    },
+
+    end: function () {
+        rimraf.sync(
+            this.destinationPath('src/index.js'));
+        rimraf.sync(
+            this.destinationPath('src/style/style.css'));
+    },
+
+    _package: function () {
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
-        lodash.assign(pkg.devDependencies, {
+
+        pkg.devDependencies = sort(lodash.assign(pkg.devDependencies, {
             'browserify': '^12.0.2',
             'gulp-batch': '^1.0.5',
             'gulp-eslint': '^2.0.0',
@@ -53,22 +69,11 @@ module.exports = yeoman.generators.Base.extend({
             "tslint": "^3.11.0",
             "vinyl-buffer": "^1.0.0",
             "vinyl-source-stream": "^1.1.0"
-        });
-        pkg.devDependencies = sort(
-            pkg.devDependencies
-        );
+        }));
+
         this.fs.writeJSON(
             this.destinationPath('package.json'), pkg, null, 2);
-    },
 
-    install: function () {
-        this.npmInstall('', {'cache-min': 604800});
-    },
-
-    end: function () {
-        rimraf.sync(
-            this.destinationPath('src/index.js'));
-        rimraf.sync(
-            this.destinationPath('src/style/style.css'));
+        return pkg;
     }
 });

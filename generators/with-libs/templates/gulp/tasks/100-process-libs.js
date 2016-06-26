@@ -40,7 +40,7 @@ gulp.task('process-libs:browserify', function () {
         .pipe(gulp.dest(file_path));
 });
 
-gulp.task('process-libs', ['process-libs:browserify'], function () {
+gulp.task('process-libs', function () {
     return gulp.src('src/lib/**/*')
         .pipe(gulp_copy('build/{0}/'.replace('{0}', pkg.name), {
             prefix: 1

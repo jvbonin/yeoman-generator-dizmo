@@ -21,33 +21,16 @@ function sort(dictionary) {
 
 module.exports = yeoman.generators.Base.extend({
     writing: function () {
-        this.fs.copy(
+        var pkg = this._package();
+        this.template(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
+            this.destinationPath('gulp/'), pkg);
+        this.template(
             this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.fs.copy(
+            this.destinationPath('src/'), pkg);
+        this.template(
             this.templatePath('coffeelint.json'),
-            this.destinationPath('coffeelint.json'));
-        var pkg = this.fs.readJSON(
-            this.destinationPath('package.json'));
-        lodash.assign(pkg.devDependencies, {
-            'gulp-batch': '^1.0.5',
-            'gulp-coffee': '^2.3.2',
-            'gulp-coffeelint': '^0.6.0',
-            'gulp-htmlmin': '^2.0.0',
-            'gulp-sass': '^2.3.2',
-            'gulp-sourcemaps': '^1.6.0',
-            'gulp-streamify': '^1.0.2',
-            'gulp-uglify': '^1.5.3',
-            'gulp-watch': '^4.3.8'
-        });
-        pkg.devDependencies = sort(
-            pkg.devDependencies
-        );
-        this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
+            this.destinationPath('coffeelint.json'), pkg);
     },
 
     install: function () {
@@ -59,5 +42,27 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('src/index.js'));
         rimraf.sync(
             this.destinationPath('src/style/style.css'));
+    },
+
+    _package: function () {
+        var pkg = this.fs.readJSON(
+            this.destinationPath('package.json'));
+
+        pkg.devDependencies = sort(lodash.assign(pkg.devDependencies, {
+            'gulp-batch': '^1.0.5',
+            'gulp-coffee': '^2.3.2',
+            'gulp-coffeelint': '^0.6.0',
+            'gulp-htmlmin': '^2.0.0',
+            'gulp-sass': '^2.3.2',
+            'gulp-sourcemaps': '^1.6.0',
+            'gulp-streamify': '^1.0.2',
+            'gulp-uglify': '^1.5.3',
+            'gulp-watch': '^4.3.8'
+        }));
+
+        this.fs.writeJSON(
+            this.destinationPath('package.json'), pkg, null, 2);
+
+        return pkg;
     }
 });

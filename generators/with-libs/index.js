@@ -21,34 +21,37 @@ function sort(dictionary) {
 
 module.exports = yeoman.generators.Base.extend({
     writing: function () {
-        this.fs.copy(
+        var pkg = this._package();
+        this.template(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
+            this.destinationPath('gulp/'), pkg);
+        this.template(
             this.templatePath('src/'),
-            this.destinationPath('src/'));
-        var pkg = this.fs.readJSON(
-            this.destinationPath('package.json'));
-        lodash.assign(pkg.scripts, {
-            'libs': 'node ./node_modules/gulp/bin/gulp.js process-libs'
-        });
-        pkg.scripts = sort(
-            pkg.scripts
-        );
-        lodash.assign(pkg.devDependencies, {
-            'browserify': '^12.0.2',
-            'gulp-streamify': '^1.0.2',
-            'gulp-uglify': '^1.5.3',
-            'vinyl-source-stream': '^1.1.0'
-        });
-        pkg.devDependencies = sort(
-            pkg.devDependencies
-        );
-        this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
+            this.destinationPath('src/'), pkg);
     },
 
     install: function () {
         this.npmInstall('', {'cache-min': 604800});
+    },
+
+    _package: function () {
+        var pkg = this.fs.readJSON(
+            this.destinationPath('package.json'));
+
+        pkg.scripts = sort(lodash.assign(pkg.scripts, {
+            'with-libs':
+                'node ./node_modules/gulp/bin/gulp.js process-libs:browserify'
+        }));
+        pkg.devDependencies = sort(lodash.assign(pkg.devDependencies, {
+            'browserify': '^12.0.2',
+            'gulp-streamify': '^1.0.2',
+            'gulp-uglify': '^1.5.3',
+            'vinyl-source-stream': '^1.1.0'
+        }));
+
+        this.fs.writeJSON(
+            this.destinationPath('package.json'), pkg, null, 2);
+
+        return pkg;
     }
 });

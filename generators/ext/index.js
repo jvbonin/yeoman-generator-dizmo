@@ -21,13 +21,13 @@ function sort(dictionary) {
 
 module.exports = yeoman.generators.Base.extend({
     writing: function () {
-        this.fs.copy(
+        this.template(
             this.templatePath('gulp/'),
             this.destinationPath('gulp/'));
-        this.fs.copy(
+        this.template(
             this.templatePath('src/'),
             this.destinationPath('src/'));
-        this.fs.copy(
+        this.template(
             this.templatePath('.eslintrc.json'),
             this.destinationPath('.eslintrc.json'));
         var pkg = this.fs.readJSON(
