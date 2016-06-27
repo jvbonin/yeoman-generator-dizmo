@@ -385,7 +385,7 @@ This will run the basic generator and then apply on top of it the extended TypeS
     yo dizmo my-dizmo --ext-type-script --skip-install
     cd my-dizmo && npm install
 
-It will create or modify the regular skeleton:
+It will create or modify the files of the regular skeleton:
 
     my-dizmo $ tree
     .
@@ -403,9 +403,11 @@ It will create or modify the regular skeleton:
     │       └── 999-watch.js
     ├── package.json
     ├── src
-    │   ├── dizmo.ts
-    │   ├── index.ts
-    │   ├── window.ts
+        ├── index.html    
+    │   └── app
+    │       ├── app.ts
+    │       ├── dizmo.ts
+    │       ├── window.ts
     │   └── style
     │       └── style.scss
     └── tsconfig.json
