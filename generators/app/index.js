@@ -62,6 +62,7 @@ module.exports = yeoman.generators.Base.extend({
             defaults: this.user.git.email() || process.env.MAIL
         });
     },
+
     prompting: function () {
         var self = this,
             done = this.async();
@@ -186,15 +187,6 @@ module.exports = yeoman.generators.Base.extend({
         this.npmInstall('', {'cache-min': 604800});
     },
 
-    git: function () {
-        var git = shell.which('git');
-        if (git && this.options.git) {
-            this.spawnCommand(git.toString(), [
-                'init', '--quiet', this.destinationPath()
-            ]);
-        }
-    },
-
     end: function () {
         if (this.options['ext']) {
             this.composeWith('dizmo:ext', {
@@ -203,33 +195,36 @@ module.exports = yeoman.generators.Base.extend({
                 })
             });
         }
-
-        if (this.options['ext-coffee-script'] &&
-            !this.options['ext-type-script'])
-        {
+        if (this.options['ext-coffee-script']) {
             this.composeWith('dizmo:ext-coffee-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })
             });
         }
-
-        if (this.options['ext-type-script'] &&
-            !this.options['ext-coffee-script'])
-        {
+        if (this.options['ext-type-script']) {
             this.composeWith('dizmo:ext-type-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })
             });
         }
-
         if (this.options['with-libs']) {
             this.composeWith('dizmo:with-libs', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })
             });
+        }
+        this._git();
+    },
+
+    _git: function () {
+        var git = shell.which('git');
+        if (git && this.options.git) {
+            this.spawnCommand(git.toString(), [
+                'init', '--quiet', this.destinationPath()
+            ]);
         }
     },
 

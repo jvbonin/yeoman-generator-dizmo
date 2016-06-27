@@ -1,6 +1,6 @@
 # <%= dizmoName %> dizmo
 
-Create the `<%= dizmoName %>` dizmo by running `npm run make` and drag and drop the generated file &ndash; which can be found at `build/<%= dizmoName %>-x.y.z.dzm` &ndash; onto dizmoSpace. The suffix of the file will be the current version number.
+Create the `<%= dizmoName %>` dizmo by running `npm run make` and drag and drop the generated file &ndash; which can be found at `build/<%= dizmoName %>-x.y.z.dzm` &ndash; onto dizmoViewer. The suffix of the file will be the current version number.
 
 ## Building
 
@@ -24,7 +24,7 @@ Now, any change in the current directory (except in `build/` and `node_modules/`
 
     npm run install
 
-The `npm run watch` run-script is *only* available, when the `yo dizmo:ext` (or `yo dizmo --ext`) sub-generator has been run the create an extended skeleton!
+The `npm run watch` run-script is *only* available, when the `dizmo:ext`, the `dizmo:ext-coffee-script` or the `dizmo:ext-type-script` sub-generator has been used!
 
 ## Testing
 
@@ -36,7 +36,7 @@ By default no test cases nor a test framework are pre-defined:
 
 ## Configuration
 
-The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). E.g. to set the credentials and the upload URL for dizmoStore, use the following content:
+The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). For example, to set the credentials and the upload URL for dizmoStore, use the following content:
 
     {
         "dizmo": {
@@ -54,4 +54,4 @@ The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/c
 
 ## Versioning
 
-Please use semantic versioning by applying `npm version patch` for small patches, `npm version minor` for minor and `npm version major` for major changes; see [NPM's semantic versioning](https://docs.npmjs.com/getting-started/semantic-versioning) for further information.
+**Important:** Please use semantic versioning by applying `npm version patch` for small patches, `npm version minor` for minor and `npm version major` for major changes! See [NPM's semantic versioning](https://docs.npmjs.com/getting-started/semantic-versioning) for further information.
