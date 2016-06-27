@@ -130,6 +130,8 @@ After you have answered the last question, the generator will create the project
     └── src
         ├── index.html
         ├── index.js
+        ├── lib
+        │   └── lodash-*.min.js
         └── style
             └── style.css
 
@@ -458,9 +460,9 @@ Let's have a look at the changes:
     └── src
         └── index.html
 
-If you look at the content of `index.html`, then you'll see that an additional `libary.js` script has been included:
+If you look at the content of `index.html`, then you'll see that an additional `lib-bundle.js` script has been included:
 
-    <script src="lib/library.js"></script>
+    <script src="lib/lib-bundle.js"></script>
 
 This script is *not* available in the skeleton, but will be constructed on the fly during the build process: It will contain the browserified content of any Node library, which you have declared in `package.json` as a dependency.
 
@@ -476,9 +478,9 @@ which adds the corresponding dependency in `package.json`:
 
 Now, if you run `npm run with-libs` plus `npm run make` and drag and drop the generated dizmo onto dizmoViewer, then you'll notice that the global `lodash` variable references the [lodash](https://lodash.com/) library.
 
-You should run `npm run with-libs` only when you add or remove dependencies, since it can depending on the dependency take some time to produce the `lib/library.js` file.
+You should run `npm run with-libs` only when you add or remove dependencies, since it can depending on the dependency take some time to produce the `lib/lib-bundle.js` file.
 
-Of course this does not mean, that you cannot include libraries the old fashioned way, by simply downloading the (minified) distribution, putting it in your dizmo project, and referencing it directly from your HTML markup as a script: this is still possible!
+Of course this does not mean, that you cannot include libraries the old fashioned way, by simply downloading the (minified) distribution, putting it in your dizmo project, and referencing it directly from your HTML markup as a script: This is still possible!
 
 But declaring a dependency in `package.json` offers you the benefit of semantic versioning.
 

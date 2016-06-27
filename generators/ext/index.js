@@ -20,33 +20,39 @@ function sort(dictionary) {
 }
 
 module.exports = yeoman.generators.Base.extend({
-    writing: function () {
-        this.template(
-            this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.template(
-            this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.template(
-            this.templatePath('.eslintrc.json'),
-            this.destinationPath('.eslintrc.json'));
+    configuring: function () {
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
-        lodash.assign(pkg.devDependencies, {
-            'gulp-batch': '^1.0.5',
-            'gulp-eslint': '^2.0.0',
-            'gulp-htmlmin': '^2.0.0',
-            'gulp-sass': '^2.3.2',
-            'gulp-sourcemaps': '^1.6.0',
-            'gulp-streamify': '^1.0.2',
-            'gulp-uglify': '^1.5.3',
-            'gulp-watch': '^4.3.8'
-        });
+
         pkg.devDependencies = sort(
-            pkg.devDependencies
+            lodash.assign(pkg.devDependencies, {
+                'gulp-batch': '^1.0.5',
+                'gulp-eslint': '^2.0.0',
+                'gulp-htmlmin': '^2.0.0',
+                'gulp-sass': '^2.3.2',
+                'gulp-sourcemaps': '^1.6.0',
+                'gulp-streamify': '^1.0.2',
+                'gulp-uglify': '^1.5.3',
+                'gulp-watch': '^4.3.8'
+            })
         );
+
         this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
+            this.destinationPath('package.json'), sort(pkg), null, 2);
+
+        return pkg;
+    },
+
+    writing: function () {
+        this.fs.copy(
+            this.templatePath('gulp/'),
+            this.destinationPath('gulp/'));
+        this.fs.copy(
+            this.templatePath('src/'),
+            this.destinationPath('src/'));
+        this.fs.copy(
+            this.templatePath('.eslintrc.json'),
+            this.destinationPath('.eslintrc.json'));
     },
 
     install: function () {

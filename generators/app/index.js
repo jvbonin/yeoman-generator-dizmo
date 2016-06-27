@@ -138,44 +138,47 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        this.template(
+        this.fs.copy(
             this.templatePath('assets/'),
-            this.destinationPath('assets/'), this.properties);
-        this.template(
+            this.destinationPath('assets/'));
+        this.fs.copy(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'), this.properties);
-        this.template(
+            this.destinationPath('gulp/'));
+        this.fs.copy(
             this.templatePath('help/'),
-            this.destinationPath('help/'), this.properties);
-        this.template(
+            this.destinationPath('help/'));
+        this.fs.copy(
             this.templatePath('src/'),
-            this.destinationPath('src/'), this.properties);
-        this.template(
+            this.destinationPath('src/'));
+        this.fs.copyTpl(
+            this.templatePath('src/index.html'),
+            this.destinationPath('src/index.html'), this.properties);
+        this.fs.copy(
             this.templatePath('gulpfile.js'),
-            this.destinationPath('gulpfile.js'), this.properties);
-        this.template(
+            this.destinationPath('gulpfile.js'));
+        this.fs.copy(
             this.templatePath('.info.plist'),
-            this.destinationPath('.info.plist'), this.properties);
-        this.template(
+            this.destinationPath('.info.plist'));
+        this.fs.copyTpl(
             this.templatePath('LICENSE'),
             this.destinationPath('LICENSE'), lodash.assign(this.properties, {
                 year: new Date().getFullYear()
             }));
-        this.template(
+        this.fs.copyTpl(
             this.templatePath('package.json'),
             this.destinationPath('package.json'), this.properties);
-        this.template(
+        this.fs.copyTpl(
             this.templatePath('README.md'),
             this.destinationPath('README.md'), this.properties);
 
         if (this.options.git) {
-            this.template(
+            this.fs.copy(
                 this.templatePath('.npmignore'),
-                this.destinationPath('.gitignore'), this.properties);
+                this.destinationPath('.gitignore'));
         } else {
-            this.template(
+            this.fs.copy(
                 this.templatePath('.npmignore'),
-                this.destinationPath('.npmignore'), this.properties);
+                this.destinationPath('.npmignore'));
         }
     },
 

@@ -10,7 +10,8 @@ gulp.task('build:all', [
     'process-styles',
     'process-scripts',
     'process-markup',
-    'process-properties'
+    'process-properties',
+    'process-libs'
 ]);
 gulp.task('build:dzm', ['build:all'], function () {
     return gulp.src('build/**/*')

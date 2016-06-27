@@ -1,8 +1,9 @@
 'use strict';
 
-var lodash = require('lodash');
-var rimraf = require('rimraf');
-var yeoman = require('yeoman-generator');
+var yeoman = require('yeoman-generator'),
+    lodash = require('lodash'),
+    rimraf = require('rimraf'),
+    path = require('path');
 
 function sort(dictionary) {
     var array = [],
@@ -20,38 +21,63 @@ function sort(dictionary) {
 }
 
 module.exports = yeoman.generators.Base.extend({
+    configuring: function () {
+        var pkg = this.fs.readJSON(
+            this.destinationPath('package.json'));
+
+        pkg.scripts = sort(
+            lodash.assign(pkg.scripts, {
+                'make:with-libs': [
+                    'node', './node_modules/gulp/bin/gulp.js', 'build:with-libs'
+                ].join(' ')
+            })
+        );
+        pkg.dependencies = sort(
+            lodash.assign(pkg.dependencies, {
+                'lodash': '^4.13.1'
+            })
+        );
+        pkg.devDependencies = sort(
+            lodash.assign(pkg.devDependencies, {
+                'browserify': '^12.0.2',
+                'gulp-streamify': '^1.0.2',
+                'gulp-uglify': '^1.5.3',
+                "gulp-sync": '^0.1.4',
+                'vinyl-source-stream': '^1.1.0'
+            })
+        );
+
+        this.fs.writeJSON(
+            this.destinationPath('package.json'), sort(pkg), null, 2);
+    },
+
     writing: function () {
-        var pkg = this._package();
-        this.template(
+        this.fs.copy(
             this.templatePath('gulp/'),
-            this.destinationPath('gulp/'), pkg);
-        this.template(
+            this.destinationPath('gulp/'));
+        this.fs.copyTpl(
             this.templatePath('src/'),
-            this.destinationPath('src/'), pkg);
+            this.destinationPath('src/'), this._pkg());
     },
 
     install: function () {
         this.npmInstall('', {'cache-min': 604800});
     },
 
-    _package: function () {
-        var pkg = this.fs.readJSON(
-            this.destinationPath('package.json'));
+    end: function () {
+        rimraf.sync(
+            this.destinationPath(path.join('build', this._pkg('name'), 'lib')));
+        rimraf.sync(
+            this.destinationPath('src/lib'));
+    },
 
-        pkg.scripts = sort(lodash.assign(pkg.scripts, {
-            'with-libs':
-                'node ./node_modules/gulp/bin/gulp.js process-libs:browserify'
-        }));
-        pkg.devDependencies = sort(lodash.assign(pkg.devDependencies, {
-            'browserify': '^12.0.2',
-            'gulp-streamify': '^1.0.2',
-            'gulp-uglify': '^1.5.3',
-            'vinyl-source-stream': '^1.1.0'
-        }));
-
-        this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
-
-        return pkg;
+    _pkg: function (key) {
+        if (key !== undefined) {
+            return this.fs.readJSON(
+                this.destinationPath('package.json'))[key];
+        } else {
+            return this.fs.readJSON(
+                this.destinationPath('package.json'));
+        }
     }
 });

@@ -1,16 +1,4 @@
 {
-  "dizmo": {
-    "install-to": "<%= installTo %>",
-    "settings": {
-      "bundle-identifier": "<%= bundleId %>",
-      "height": 240,
-      "width": 480
-    }
-  },
-  "person": {
-    "name": "<%= personName %>",
-    "email": "<%= personEmail %>"
-  },
   "description": "<%= dizmoDescription %>",
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -24,12 +12,24 @@
     "require-dir": "^0.3.0",
     "rimraf": "^2.5.2"
   },
+  "dizmo": {
+    "install-to": "<%= installTo %>",
+    "settings": {
+      "bundle-identifier": "<%= bundleId %>",
+      "height": 240,
+      "width": 480
+    }
+  },
   "keywords": [
     "dizmo",
     "<%= _.snakeCase(dizmoName) %>"
   ],
   "license": "ISC",
   "name": "<%= dizmoName %>",
+  "person": {
+    "name": "<%= personName %>",
+    "email": "<%= personEmail %>"
+  },
   "private": true,
   "repository": {
     "type": "git",
