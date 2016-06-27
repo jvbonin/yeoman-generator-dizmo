@@ -42,6 +42,8 @@ Further, we suggest to clear the cache initially by running `npm cache clean`, b
 
 However, this also means that your very first dizmo skeleton generation (and corresponding installation of [npm] packages) will take longer than later invocations. By running `npm cache ls` you can determine, which [npm] packages have already been cached.
 
+*Note:* It's recommended to clean the cache also before an update of the `generator-dizmo` generator itself, by running `npm cache clean`.
+
 ### Questions
 
 At the start, you will be asked a few questions, after which the terminal should look similar to:
@@ -50,7 +52,7 @@ At the start, you will be asked a few questions, after which the terminal should
 
          _-----_
         |       |    .--------------------------.
-        |--(o)--|    |   Welcome to the awsome  |
+        |--(o)--|    |  Welcome to the awesome  |
        `---------´   |     dizmo generator!     |
         ( _´U`_ )    '--------------------------'
         /___A___\
@@ -182,9 +184,9 @@ Or you can `run-script` abbreviate to:
 
     npm run install
 
-If no `install-to` path is provided, then the dizmo is build and will be available under `build/`, but it will not be copied to the installation path (since the latter has not been given).
+If no `install-to` path is provided, then the dizmo is build and will be available under `build/`, but it will not be copied to the installation path (since the latter has not been provided).
 
-* `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to came-case, before being translated.
+* `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to camel-case, before being translated.
 
 #### Defaults
 
@@ -273,7 +275,7 @@ However, for *external* third party dependencies please consider using the `dizm
 
 ## Advanced sub-generators
 
-Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced sub-generators `dizmo:ext` and `dizmo:ext-coffee-script`, `dizmo:ext-type-script` and `dizmo:with-libs`.
+Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext`, `dizmo:ext-coffee-script`, `dizmo:ext-type-script` and `dizmo:with-libs` sub-generators.
 
 It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original directory structure has been left in place. Using this feature you can later-on convert your basic dizmo projects to more advanced ones.
 
