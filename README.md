@@ -52,7 +52,7 @@ At the start, you will be asked a few questions, after which the terminal should
 
          _-----_
         |       |    .--------------------------.
-        |--(o)--|    |   Welcome to the awsome  |
+        |--(o)--|    |   Welcome to the awesome  |
        `---------´   |     dizmo generator!     |
         ( _´U`_ )    '--------------------------'
         /___A___\
@@ -101,6 +101,7 @@ After you have answered the last question, the generator will create the project
 
     my-dizmo $ tree
     .
+    ├── .info.plist
     ├── LICENSE
     ├── README.md
     ├── assets
@@ -182,9 +183,9 @@ Or you can abbreviate to:
 
     npm run install
 
-If no `install-to` path is provided, then the dizmo is build and will be available under `build/`, but it will not be copied to the installation path (since latter is not given).
+If no `install-to` path is provided, then the dizmo is build and will be available under `build/`, but it will not be copied to the installation path (since the latter is not given).
 
-* `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to came-case, before being translated. See the *build* section for further information on `Info.plist`.
+* `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to camel-case, before being translated. See the *build* section for further information on `Info.plist`.
 
 #### Defaults
 
@@ -268,7 +269,7 @@ However, for third party dependencies please consider using the `opt:browserify`
 
 ## Advanced sub-generators
 
-Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced sub-generators `dizmo:ext` and `dizmo:ext-coffee-script` and `dizmo:opt-browserify`.
+Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced sub-generators `dizmo:ext`, `dizmo:ext-coffee-script`, `dizmo:ext-type-script` and `dizmo:opt-browserify`.
 
 All sub-generators require the basic skeleton to be setup with `yo dizmo` (or equivalently with `yo dizmo:app`) first!
 
@@ -290,7 +291,7 @@ This will run the basic generator and then apply on top of it the extended sub-g
     yo dizmo my-dizmo --ext --skip-install
     cd my-dizmo && npm install
 
-It will create or modify the regular skeleton:
+It will create or modify the the files of the  regular skeleton:
 
     my-dizmo $ tree
     .
@@ -336,7 +337,7 @@ This will run the basic generator and then apply on top of it the extended Coffe
     yo dizmo my-dizmo --ext-coffee-script --skip-install
     cd my-dizmo && npm install
 
-It will create or modify the regular skeleton:
+It will create or modify the files of the regular skeleton:
 
     my-dizmo $ tree
     .
@@ -422,6 +423,10 @@ Now, if you run `npm run make` and drag and drop the generated dizmo onto dizmoV
 Of course this does not mean, that you cannot include libraries the old fashioned way, by simply downloading the (minified) distribution, putting it in your dizmo project, and referencing it directly from your HTML markup as a script: this is still possible!
 
 But declaring a dependency in `package.json` offers you the benefit of semantic versioning.
+
+## Updating generator-dizmo
+
+We recommend to clear the cache by running `npm cache clean` before an update.
 
 ## License
 
