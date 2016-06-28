@@ -1,20 +1,25 @@
 var pkg = require('../package.js'),
     path = require('path');
 var gulp = require('gulp'),
-    gulp_coffee = require('gulp-coffee'),
-    gulp_concat = require('gulp-concat'),
-    gulp_uglify = require('gulp-uglify');
+    gulp_uglify = require('gulp-uglify'),
+    gulp_sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer'),
+    browserify = require('browserify'),
+    coffeeify = require('coffeeify'),
+    source = require('vinyl-source-stream');
 
-gulp.task('process-scripts:coffee', function () {
-
-    var src_list = [];
-    src_list.push(path.join('src', 'index.coffee'));
-
-    return gulp.src(src_list)
-        .pipe(gulp_coffee({bare: true}).on('error', console.log))
-        .pipe(gulp_concat('index.js'))
+gulp.task('process-scripts', function () {
+    var browserified = browserify({
+        basedir: '.', entries: [
+            path.join('src', 'index.coffee')
+        ]
+    });
+    return browserified
+        .transform(coffeeify).bundle()
+        .pipe(source('index.js'))
+        .pipe(buffer())
+        .pipe(gulp_sourcemaps.init({loadMaps: true}))
         .pipe(gulp_uglify())
+        .pipe(gulp_sourcemaps.write('./'))
         .pipe(gulp.dest(path.join('build', pkg.name)));
 });
-
-gulp.task('process-scripts', ['process-scripts:coffee']);

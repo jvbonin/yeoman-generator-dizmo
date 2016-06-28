@@ -31,9 +31,9 @@ module.exports = yeoman.generators.Base.extend({
                 'gulp-htmlmin': '^2.0.0',
                 'gulp-sass': '^2.3.2',
                 'gulp-sourcemaps': '^1.6.0',
-                'gulp-streamify': '^1.0.2',
                 'gulp-uglify': '^1.5.3',
-                'gulp-watch': '^4.3.8'
+                'gulp-watch': '^4.3.8',
+                'vinyl-buffer': '^1.0.0'
             })
         );
 

@@ -265,14 +265,6 @@ Once your dizmo is build, a `build/` folder with the following structure will be
 * `MyDizmo/lib/lodash-*.min.js`: a sample third party library;
 * `MyDizmo/style/style.css`: CSS style sheets.
 
-## Dependency management
-
-Within your own dizmo source (`src/index.js` etc.), there is at the moment *no* automatic dependency management implemented, because of which you should extend the `src_list` array in the `070-process-scripts.js` task accordingly, to be able to work with a multi-file source base.
-
-However, for *external* third party dependencies please consider using the `dizmo:with-libs` sub-generator (or simply drop a library distribution into `src/lib/` and reference it in the `index.html` markup using a corresponding `<script>` tag).
-
-**Note:** The `dizmo:ext-type-script` sub-generator is at the moment the *only* sub-generator integrating automatic dependency management.
-
 ## Advanced sub-generators
 
 Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext`, `dizmo:ext-coffee-script`, `dizmo:ext-type-script` and `dizmo:with-libs` sub-generators.

@@ -1,16 +1,14 @@
-var showBack = function () {
+var assert = require('assert');
+
+window.showBack = function () {
     dizmo.showBack();
 };
-if (typeof assert !== 'undefined') {
-    assert(typeof showBack === 'function');
-}
+assert.ok(typeof window.showBack === 'function');
 
-var showFront = function () {
+window.showFront = function () {
     dizmo.showFront();
 };
-if (typeof assert !== 'undefined') {
-    assert(typeof showFront === 'function');
-}
+assert.ok(typeof window.showBack === 'function');
 
 window.document.addEventListener('dizmoready', function () {
     document.getElementById('done').onclick = function () {

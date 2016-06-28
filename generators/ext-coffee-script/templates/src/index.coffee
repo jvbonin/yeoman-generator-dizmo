@@ -1,16 +1,16 @@
-showBack = ->
+assert = require('assert')
+
+window.showBack = ->
     dizmo.showBack()
     return
 
-if typeof assert != 'undefined'
-    assert typeof showBack == 'function'
+assert.ok typeof window.showBack == 'function'
 
-showFront = ->
+window.showFront = ->
     dizmo.showFront()
     return
 
-if typeof assert != 'undefined'
-    assert typeof showFront == 'function'
+assert.ok typeof window.showBack == 'function'
 
 window.document.addEventListener 'dizmoready', ->
 

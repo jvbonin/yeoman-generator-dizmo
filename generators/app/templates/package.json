@@ -1,8 +1,8 @@
 {
   "description": "<%= dizmoDescription %>",
   "devDependencies": {
+    "browserify": "^12.0.2",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
     "gulp-copy": "^0.0.2",
     "gulp-plist": "^0.1.0",
     "gulp-rename": "^1.2.2",
@@ -10,7 +10,8 @@
     "gulp-zip": "^3.2.0",
     "lodash": "^4.13.1",
     "require-dir": "^0.3.0",
-    "rimraf": "^2.5.2"
+    "rimraf": "^2.5.2",
+    "vinyl-source-stream": "^1.1.0"
   },
   "dizmo": {
     "install-to": "<%= installTo %>",

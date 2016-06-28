@@ -39,11 +39,9 @@ module.exports = yeoman.generators.Base.extend({
         );
         pkg.devDependencies = sort(
             lodash.assign(pkg.devDependencies, {
-                'browserify': '^12.0.2',
                 'gulp-streamify': '^1.0.2',
                 'gulp-uglify': '^1.5.3',
-                "gulp-sync": '^0.1.4',
-                'vinyl-source-stream': '^1.1.0'
+                'gulp-sync': '^0.1.4'
             })
         );
 
