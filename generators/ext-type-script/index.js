@@ -57,8 +57,8 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('.eslintrc.json'),
             this.destinationPath('.eslintrc.json'));
         this.fs.copy(
-            this.templatePath('.tslint.json'),
-            this.destinationPath('.tslint.json'));
+            this.templatePath('tslint.json'),
+            this.destinationPath('tslint.json'));
         this.fs.copy(
             this.templatePath('tsconfig.json'),
             this.destinationPath('tsconfig.json'));

@@ -6,7 +6,7 @@ gulp.task('lint:ts', function () {
     return gulp.src([
         './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'])
         .pipe(gulp_tslint({
-            configuration: '.tslint.json'
+            configuration: 'tslint.json'
         }))
         .pipe(gulp_tslint.report("verbose", {
             emitError: false
