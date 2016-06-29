@@ -5,12 +5,13 @@ var gulp = require('gulp'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
-    source = require('vinyl-source-stream');
+    source = require('vinyl-source-stream'),
+    coffeeify = require('coffeeify');
 
 gulp.task('process-scripts', function () {
     var browserified = browserify({
         basedir: '.', entries: ['src/index.coffee']
-    }).transform(require('coffeeify'));
+    }).transform(coffeeify);
     return browserified.bundle()
         .pipe(source('index.js'))
         .pipe(buffer())

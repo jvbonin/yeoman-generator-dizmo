@@ -1,5 +1,4 @@
-var install = require('./110-install'),
-    pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path');
 var gulp = require('gulp'),
     gulp_util = require('gulp-util'),
@@ -8,24 +7,23 @@ var gulp = require('gulp'),
 var buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
-    watchify = require('watchify'),
-    tsify = require('tsify');
+    watchify = require('watchify');
 
 var watched = watchify(browserify({
     basedir: '.', entries: ['src/app/app.ts'],
     cache: {}, packageCache: {}, debug: true
-}).plugin(tsify));
+}).plugin(require('tsify')));
 
 var on_watch = function () {
-    return install(watched.bundle()
+    return watched.bundle()
         .pipe(source('index.js'))
         .pipe(buffer())
         .pipe(gulp_sourcemaps.init({loadMaps: true}))
         .pipe(gulp_uglify())
         .pipe(gulp_sourcemaps.write('./'))
-        .pipe(gulp.dest(path.join('build', pkg.name))));
+        .pipe(gulp.dest(path.join('build', pkg.name)));
 };
 
 watched.on('update', on_watch);
 watched.on('log', gulp_util.log);
-gulp.task('watch', ['build'], on_watch);
+gulp.task('process-scripts:watch', on_watch);
