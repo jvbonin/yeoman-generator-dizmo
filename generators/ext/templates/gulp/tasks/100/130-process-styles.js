@@ -1,4 +1,4 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path');
 
 var gulp = require('gulp'),
@@ -13,7 +13,7 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
-    return gulp.src('src/style/*.scss')
+    return gulp.src('src/style/**/*.scss')
         .pipe(gulp_sourcemaps.init())
         .pipe(gulp_sass({outputStyle: 'compressed'})
             .on('error', gulp_sass.logError))

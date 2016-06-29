@@ -44,7 +44,7 @@ module.exports = yeoman.generators.Base.extend({
         );
 
         this.fs.writeJSON(
-            this.destinationPath('package.json'), sort(pkg), null, 2);
+            this.destinationPath('package.json'), sort(pkg), null, 4);
     },
 
     writing: function () {
