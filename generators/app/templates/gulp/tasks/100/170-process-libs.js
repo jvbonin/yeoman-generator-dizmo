@@ -1,4 +1,4 @@
-var pkg = require('../package.js');
+var pkg = require('../../package.js');
 var gulp = require('gulp'),
     gulp_copy = require('gulp-copy');
 

@@ -1,4 +1,4 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     lodash = require('lodash'),
     path = require('path');
 var gulp = require('gulp'),

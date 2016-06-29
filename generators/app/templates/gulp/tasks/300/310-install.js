@@ -1,4 +1,4 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     gulp = require('gulp'),
     os = require('os'),
     path = require('path');
@@ -11,13 +11,11 @@ var install = function (result) {
         install_to, pkg.dizmo.settings['bundle-identifier']))) : result;
 };
 
-gulp.task('install', ['build'], function () {
+gulp.task('install:rebuild', ['build'], function () {
     return install(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)));
 });
-gulp.task('install:only', function () {
+gulp.task('install', function () {
     return install(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)));
 });
-
-module.exports = install;

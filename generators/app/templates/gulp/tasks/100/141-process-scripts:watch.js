@@ -1,5 +1,4 @@
-var install = require('./999-install'),
-    pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path');
 var gulp = require('gulp'),
     gulp_util = require('gulp-util'),
@@ -13,9 +12,9 @@ var watched = watchify(browserify({
 }));
 
 var on_watch = function () {
-    return install(watched.bundle()
+    return watched.bundle()
         .pipe(source('index.js'))
-        .pipe(gulp.dest(path.join('build', pkg.name))));
+        .pipe(gulp.dest(path.join('build', pkg.name)));
 };
 
 watched.on('update', on_watch);

@@ -11,7 +11,7 @@
         "gulp-ver": "^0.1.0",
         "gulp-zip": "^3.2.0",
         "lodash": "^4.13.1",
-        "require-dir": "^0.3.0",
+        "require-all": "^2.0.0",
         "rimraf": "^2.5.2",
         "vinyl-source-stream": "^1.1.0",
         "watchify": "^3.7.0"
@@ -41,7 +41,7 @@
     },
     "scripts": {
         "clean": "node ./node_modules/gulp/bin/gulp.js clean",
-        "install": "node ./node_modules/gulp/bin/gulp.js install",
+        "install": "node ./node_modules/gulp/bin/gulp.js install:rebuild",
         "make": "node ./node_modules/gulp/bin/gulp.js",
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"

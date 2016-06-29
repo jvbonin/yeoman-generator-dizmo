@@ -1,4 +1,4 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path'),
     rimraf = require('rimraf');
 
