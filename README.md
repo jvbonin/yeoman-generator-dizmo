@@ -149,7 +149,7 @@ Let's have a look at each ot the top level files and directories:
 
 * `package.json`: This is an important file! It is consumed by the [npm] package manager, provides run scripts for the build system (like `lint`, `clean`, `make`, `install` etc.), and allows to change the dizmo settings. Have a look at the corresponding section for further information.
 
-* `src`: A folder containing your own scripts for your dizmo, like `index.html` and `index.js` (plus CSS styles under `style/style.css`).
+* `src`: A folder containing your own scripts for your dizmo, like `index.html` and `index.js` plus style sheets under `style/`. Further, in the `src/lib/` folder you can put third party libraries, which you can then reference via a `<script>` tag in the `index.html` markup.
 
 ## Package manager: package.json
 
@@ -171,20 +171,11 @@ In addition to the default entries of [npm] the `package.json` file contains a `
 Lets have a look at each entry:
 
 * `install-to`: Your dizmoViewer caches locally installed dizmos in a location that looks on Unix likes system similar like this:
-
 ```
 /home/user/.local/share/dizmo/dizmo/user/InstalledDizmos/
 ```
 
-where `user` is your login. If you set `install-to` to this path, then you will be able to directly build and install a dizmo to the given path. Just run:
-
-    npm run-script install
-
-Or you can `run-script` abbreviate to:
-
-    npm run install
-
-If no `install-to` path is provided, then the dizmo is build and will be available under `build/`, but it will not be copied to the installation path (since the latter has not been provided).
+where `user` would e.g. be your login. If you set `install-to` to this path, then you will be able to directly build and install a dizmo to the given path.
 
 * `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Each entry key is converted to camel-case, before being translated.
 
@@ -216,17 +207,45 @@ This means that if you are sure that all your dependencies have been installed a
 
 Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts); in each `package.json` the following scripts should be available:
 
-* `clean`: ensures to run the clean task provided by the build system:
+* `clean`: removes the `./build` sub-directory completely.
 ```
 npm run clean
 ```
 
-* `make`: ensures to run the build system; if you want to run custom sub-task then suffix the command with a double hyphen and provide the corresponding task name, for example:
+* `install`: builds and installs the dizmo to a installation path given by the `install-to` configuration.
 ```
-npm run make -- clean
+npm run install
+```
+
+* `install`: or if the `DIZMO_INSTALL_TO` environment variable has been provided then the dizmo is copied to the corresponding location.
+```
+DIZMO_INSTALL_TO=$DIZMO_INSTALL_TO npm run install
+```
+
+* `lint`: applies linting to your source code, but it in not available in the basic generator.
+```
+npm run lint
+```
+
+* `make`: builds the dizmo (including the `*.dzm` archive) from scratch and puts it into the `./build` sub-directory.
+```
+npm run make
 ```
 
 * `test`: ensures to run tests; by default no tests nor a test framework are pre-defined (therefore a simple `exit 0` script has been provided). It's up to the dizmo developer to decide how tests shall be implemented. The only condition is, that the main test script should provide an exit value of `0` in case of success.
+```
+npm run test
+```
+
+* `watch`: watches your source code, and incrementally rebuilds the dizmo on any change.
+```
+npm run watch
+```
+
+* `watch`: further, it copies the build to the installation path if either the `install-to` configuration has been set in `package.json` or `DIZMO_INSTALL_TO` environment variable has been given.
+```
+DIZMO_INSTALL_TO=$DIZMO_INSTALL_TO npm run watch
+```
 
 ## Build
 
@@ -387,49 +406,6 @@ The extended features are:
 
 * **TypeScript:** Using the `index.ts` file you can start developing your application in [TypeScript](http://www.typescriptlang.org/).
 
-### dizmo:with-libs &ndash; Library integration
-
-Thanks to the [browserify](http://browserify.org/) project it is possible to integrate (browser compatible) node modules directly into your dizmo projects:
-
-    yo dizmo my-dizmo --ext --with-libs
-
-This will run the basic and extended (sub-)generators, and then apply on top of it the `dizmo:with-libs` sub-generator. Let's have a look at the changes:
-
-    my-dizmo $ tree
-    .
-    ├── gulp
-    │   └── tasks
-    │       └── 100-process-libs.js
-    ├── package.json
-    └── src
-        └── index.html
-
-If you look at the content of `index.html`, then you'll see that an additional `lib-bundle.js` script has been included:
-
-    <script src="lib/lib-bundle.js"></script>
-
-This bundle is *not* available in the skeleton yet, but will be constructed on the fly during the build process: It will contain the browserified content of any Node library, which you can declare in `package.json` as a dependency.
-
-For example, if you want to have access to the [lodash](https://lodash.com/) library within your dizmo, then you only have to run:
-
-    npm install --save lodash
-
-which will can the corresponding dependency to `package.json`:
-
-    "dependencies": {
-        "lodash": "^4.13.1"
-    }
-
-Now, if you run:
-
-    npm run make:with-libs
-
-and drag and drop the generated `build/MyDizmo-0.0.0.dzm` file onto dizmoViewer, then you'll notice that the global `lodash` variable references now the [lodash](https://lodash.com/) library. You can verify this, by switching to the development mode, opening the inspector, and then entering `lodash.VERSION` to see the current version number of the `lodash` library.
-
-**Attention:** You should run `npm run make:with-libs` only when you add or remove dependencies to `package.json`, since it can -- based on the dependency -- take some time to produce the `lib/lib-bundle.js` file. Otherwise, just use the default `npm run make` to quickly build your project.
-
-Of course, the old fashioned way of simply downloading a (minified) distribution of a library, putting it in your dizmo project under `src/lib/`, and finally referencing it directly from within your `index.html` markup via a corresponding `<script>` tag is still possible!
-
 ## Miscellanea
 
 ### GIT initialization
@@ -440,6 +416,27 @@ Invoke a generator (or a sub-generator) combined with the `--git` option:
 
 The created project folder will now be named `my-dizmo.git`, and it will be initialized as a GIT repository; no commits will be performed though. Further, this only will work, when the `git` command is accessible.
 
+### Dependency management
+
+All (sub-)generators support dependency management using [Node modules][node-module]: You can structure your dizmo code using `require`, `exports` and `module.exports` objects. Further, you can install external third party libraries and reference them directly with `require`. For example to use `jQuery` run:
+```
+npm install --save jquery
+```
+Then in your code you can get a reference with:
+```
+var jQuery = require('jquery');
+```
+If you want to remove an installed library just run:
+```
+npm remove --save jquery
+```
+
+This approach works well, as long as the external libraries are not too large, since otherwise the build process can take longer. In such cases you should use the incremental builder using the watcher:
+```
+npm run watch
+```
+Or you can simply drop a library into the `src/lib/` sub-directory and reference it accordingly via a corresponding `<script>` tag in the `index.html` markup.
+
 ## License
 
  © 2016 [dizmo AG, Switzerland](http://dizmo.com/)
@@ -447,3 +444,4 @@ The created project folder will now be named `my-dizmo.git`, and it will be init
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
 [npm]: https://www.npmjs.com
+[node-module]: https://nodejs.org/api/modules.html
