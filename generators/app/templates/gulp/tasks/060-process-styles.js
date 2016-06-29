@@ -11,6 +11,6 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
-    return gulp.src('src/style/*.css')
+    return gulp.src('src/style/**/*.css')
         .pipe(gulp.dest(path.join('build', pkg.name, 'style')));
 });

@@ -6,6 +6,7 @@
         "gulp-copy": "^0.0.2",
         "gulp-plist": "^0.1.0",
         "gulp-rename": "^1.2.2",
+        "gulp-sync": "^0.1.4",
         "gulp-util": "^3.0.7",
         "gulp-ver": "^0.1.0",
         "gulp-zip": "^3.2.0",
