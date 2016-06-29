@@ -1,49 +1,50 @@
 {
-  "description": "<%= dizmoDescription %>",
-  "devDependencies": {
-    "browserify": "^12.0.2",
-    "gulp": "^3.9.1",
-    "gulp-copy": "^0.0.2",
-    "gulp-plist": "^0.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-ver": "^0.1.0",
-    "gulp-zip": "^3.2.0",
-    "lodash": "^4.13.1",
-    "require-dir": "^0.3.0",
-    "rimraf": "^2.5.2",
-    "vinyl-source-stream": "^1.1.0"
-  },
-  "dizmo": {
-    "install-to": "<%= installTo %>",
-    "settings": {
-      "bundle-identifier": "<%= bundleId %>",
-      "height": 240,
-      "width": 480
-    }
-  },
-  "keywords": [
-    "dizmo",
-    "<%= _.snakeCase(dizmoName) %>"
-  ],
-  "license": "ISC",
-  "name": "<%= dizmoName %>",
-  "person": {
-    "name": "<%= personName %>",
-    "email": "<%= personEmail %>"
-  },
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "scripts": {
-    "clean": "node ./node_modules/gulp/bin/gulp.js clean",
-    "install": "node ./node_modules/gulp/bin/gulp.js install",
-    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "make": "node ./node_modules/gulp/bin/gulp.js",
-    "test": "exit 0",
-    "upload": "node ./node_modules/gulp/bin/gulp.js upload",
-    "watch": "node ./node_modules/gulp/bin/gulp.js watch"
-  },
-  "version": "0.0.0"
+    "description": "<%= dizmoDescription %>",
+    "devDependencies": {
+        "browserify": "^13.0.1",
+        "gulp": "^3.9.1",
+        "gulp-copy": "^0.0.2",
+        "gulp-plist": "^0.1.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-util": "^3.0.7",
+        "gulp-ver": "^0.1.0",
+        "gulp-zip": "^3.2.0",
+        "lodash": "^4.13.1",
+        "require-dir": "^0.3.0",
+        "rimraf": "^2.5.2",
+        "vinyl-source-stream": "^1.1.0",
+        "watchify": "^3.7.0"
+    },
+    "dizmo": {
+        "install-to": "<%= installTo %>",
+        "settings": {
+            "bundle-identifier": "<%= bundleId %>",
+            "height": 240,
+            "width": 480
+        }
+    },
+    "keywords": [
+        "dizmo",
+        "<%= _.snakeCase(dizmoName) %>"
+    ],
+    "license": "ISC",
+    "name": "<%= dizmoName %>",
+    "person": {
+        "name": "<%= personName %>",
+        "email": "<%= personEmail %>"
+    },
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "scripts": {
+        "clean": "node ./node_modules/gulp/bin/gulp.js clean",
+        "install": "node ./node_modules/gulp/bin/gulp.js install",
+        "lint": "node ./node_modules/gulp/bin/gulp.js lint",
+        "make": "node ./node_modules/gulp/bin/gulp.js",
+        "test": "exit 0",
+        "watch": "node ./node_modules/gulp/bin/gulp.js watch"
+    },
+    "version": "0.0.0"
 }

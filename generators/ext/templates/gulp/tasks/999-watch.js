@@ -1,13 +1,30 @@
+var install = require('./110-install'),
+    pkg = require('../package.js'),
+    path = require('path');
 var gulp = require('gulp'),
-    gulp_watch = require('gulp-watch'),
-    gulp_batch = require('gulp-batch');
+    gulp_util = require('gulp-util'),
+    gulp_uglify = require('gulp-uglify'),
+    gulp_sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    watchify = require('watchify');
 
-gulp.task('watch', function () {
-    gulp_watch([
-        '**/*', '!build', '!node_modules'
-    ], gulp_batch({
-        timeout: 256
-    }, function (events, done) {
-        gulp.start('install', done);
-    }));
-});
+var watched = watchify(browserify({
+    basedir: '.', entries: ['src/index.js'],
+    cache: {}, packageCache: {}, debug: true
+}));
+
+var on_watch = function () {
+    return install(watched.bundle()
+        .pipe(source('index.js'))
+        .pipe(buffer())
+        .pipe(gulp_sourcemaps.init({loadMaps: true}))
+        .pipe(gulp_uglify())
+        .pipe(gulp_sourcemaps.write('./'))
+        .pipe(gulp.dest(path.join('build', pkg.name))));
+};
+
+watched.on('update', on_watch);
+watched.on('log', gulp_util.log);
+gulp.task('watch', ['build'], on_watch);

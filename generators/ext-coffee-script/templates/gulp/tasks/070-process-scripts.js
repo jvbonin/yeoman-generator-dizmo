@@ -10,12 +10,9 @@ var buffer = require('vinyl-buffer'),
 
 gulp.task('process-scripts', function () {
     var browserified = browserify({
-        basedir: '.', entries: [
-            path.join('src', 'index.coffee')
-        ]
-    });
-    return browserified
-        .transform(coffeeify).bundle()
+        basedir: '.', entries: ['src/index.coffee']
+    }).transform(coffeeify);
+    return browserified.bundle()
         .pipe(source('index.js'))
         .pipe(buffer())
         .pipe(gulp_sourcemaps.init({loadMaps: true}))

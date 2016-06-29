@@ -3,20 +3,15 @@ var pkg = require('../package.js'),
     os = require('os'),
     path = require('path');
 
-var install_to = process.env.DIZMO_INSTALL_TO
-    || pkg.dizmo['install-to']
-    || '';
+module.exports = function (result) {
+    var install_to = process.env.DIZMO_INSTALL_TO || pkg.dizmo['install-to'];
+    if (path.isAbsolute(install_to) === false)
+        install_to = path.join(os.homedir(), install_to);
+    return install_to ? result.pipe(gulp.dest(path.join(
+        install_to, pkg.dizmo.settings['bundle-identifier']))) : result;
+};
 
-if (install_to) {
-    gulp.task('install', ['build:dzm'], function () {
-        if (path.isAbsolute(install_to) === false) {
-            install_to = path.join(os.homedir(), install_to);
-        }
-
-        return gulp.src('build/{0}/**/*'.replace('{0}', pkg.name))
-            .pipe(gulp.dest(path.join(install_to,
-                pkg.dizmo.settings['bundle-identifier'])));
-    });
-} else {
-    gulp.task('install', ['build:dzm']);
-}
+gulp.task('install', ['build'], function () {
+    return module.exports(gulp.src(
+        'build/{0}/**/*'.replace('{0}', pkg.name)));
+});

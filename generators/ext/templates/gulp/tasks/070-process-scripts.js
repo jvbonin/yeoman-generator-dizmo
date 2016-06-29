@@ -9,9 +9,7 @@ var buffer = require('vinyl-buffer'),
 
 gulp.task('process-scripts', function () {
     var browserified = browserify({
-        basedir: '.', entries: [
-            path.join('src', 'index.js')
-        ]
+        basedir: '.', entries: ['src/index.js']
     });
     return browserified.bundle()
         .pipe(source('index.js'))
