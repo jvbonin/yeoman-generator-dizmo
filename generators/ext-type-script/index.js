@@ -24,6 +24,11 @@ module.exports = yeoman.generators.Base.extend({
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
 
+        pkg.scripts = sort(
+            lodash.assign(pkg.scripts, {
+                'lint': 'node ./node_modules/gulp/bin/gulp.js lint'
+            })
+        );
         pkg.devDependencies = sort(
             lodash.assign(pkg.devDependencies, {
                 'gulp-eslint': '^2.0.0',
