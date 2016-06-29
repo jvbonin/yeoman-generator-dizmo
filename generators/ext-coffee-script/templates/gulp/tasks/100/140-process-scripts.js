@@ -1,17 +1,16 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path');
 var gulp = require('gulp'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
-    coffeeify = require('coffeeify'),
     source = require('vinyl-source-stream');
 
 gulp.task('process-scripts', function () {
     var browserified = browserify({
         basedir: '.', entries: ['src/index.coffee']
-    }).transform(coffeeify);
+    }).transform(require('coffeeify'));
     return browserified.bundle()
         .pipe(source('index.js'))
         .pipe(buffer())

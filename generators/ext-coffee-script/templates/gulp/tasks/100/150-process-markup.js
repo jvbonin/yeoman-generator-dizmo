@@ -1,10 +1,10 @@
-var pkg = require('../package.js'),
+var pkg = require('../../package.js'),
     path = require('path');
 var gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
 
 gulp.task('process-markup', function () {
-    return gulp.src('src/index.html')
+    return gulp.src('src/**/*.html')
         .pipe(gulp_htmlmin({
             collapseWhitespace: true,
             minifyCSS: true,
