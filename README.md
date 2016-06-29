@@ -108,17 +108,7 @@ After you have answered the last question, the generator will create the project
     ├── gulp
     │   ├── package.js
     │   └── tasks
-    │       ├── 010-build.js
-    │       ├── 020-clean.js
-    │       ├── 030-process-help.js
-    │       ├── 040-process-assets.js
-    │       ├── 050-process-libs.js
-    │       ├── 060-process-styles.js
-    │       ├── 070-process-scripts.js
-    │       ├── 080-process-markup.js
-    │       ├── 090-process-properties.js
-    │       ├── 100-process-libs.js
-    │       └── 110-install.js
+    │       └── *
     ├── gulpfile.js
     ├── help
     │   └── en
@@ -304,14 +294,7 @@ This will run the basic generator and then apply on top of it the extended sub-g
     ├── gulp
     │   ├── package.js
     │   └── tasks
-    │       ├── 000-lint.js
-    │       ├── 010-build.js
-    │       ├── 060-process-styles.js
-    │       ├── 070-process-scripts.js
-    │       ├── 080-process-markup.js
-    │       ├── 100-process-libs.js
-    │       ├── 110-install.js
-    │       └── 999-watch.js
+    │       └── *
     ├── package.json
     └── src
         └── style
@@ -339,14 +322,7 @@ This will run the basic generator and then apply on top of it the extended Coffe
     ├── gulp
     │   ├── package.js
     │   └── tasks
-    │       ├── 000-lint.js
-    │       ├── 010-build.js
-    │       ├── 060-process-styles.js
-    │       ├── 070-process-scripts.js
-    │       ├── 080-process-markup.js
-    │       ├── 100-process-libs.js
-    │       ├── 110-install.js
-    │       └── 999-watch.js
+    │       └── *
     ├── package.json
     └── src
         ├── index.coffee
@@ -378,14 +354,7 @@ This will run the basic generator and then apply on top of it the extended [Type
     ├── gulp
     │   ├── package.js
     │   └── tasks
-    │       ├── 000-lint.js
-    │       ├── 010-build.js
-    │       ├── 060-process-styles.js
-    │       ├── 070-process-scripts.js
-    │       ├── 080-process-markup.js
-    │       ├── 100-process-libs.js
-    │       ├── 110-install.js
-    │       └── 999-watch.js
+    │       └── *
     ├── package.json
     ├── src
     │   ├── app
